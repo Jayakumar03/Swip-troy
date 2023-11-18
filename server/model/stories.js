@@ -2,8 +2,11 @@ const mongoose = require("mongoose");
 const User = require("./user");
 
 const stories = new mongoose.Schema({
-  bookmark: Boolean,
-  user: {
+  bookmark:{
+    type:Boolean,
+    default:false
+  },
+  userId: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
     required: true,
