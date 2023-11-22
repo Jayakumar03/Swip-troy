@@ -15,8 +15,7 @@ exports.register = async (req, res, next) => {
     const isUserNameAlreadyPresent = await User.findOne({ username });
 
     if (isUserNameAlreadyPresent) {
-      throw new Error("Username is already registered");
-      res.status(409).json({
+      return res.status(409).json({
         message: "Username is already registered",
       });
     }
@@ -36,6 +35,7 @@ exports.logIn = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
+
     if (!username || !password) {
       return next(new Error("Username and password are required"));
     }
@@ -45,8 +45,7 @@ exports.logIn = async (req, res, next) => {
     const user = await User.findOne({ username }).select("+password");
 
     if (!user) {
-      throw new Error("User is not registered");
-      res.status(409).json({
+      return res.status(409).json({
         message: "User is not registered",
       });
     }

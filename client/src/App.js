@@ -1,4 +1,4 @@
-
+import "./App.css";
 import Home from "./Components/Home";
 
 import Bookmarkpage from "./Components/Bookmarkpage"

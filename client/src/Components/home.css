@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background: #ffffff;
+  box-shadow: 0px 4px 15px 0px #00000026;
+  padding: 10px;
+}
+
+.app-name {
+  position: relative;
+  left: 2%;
+  bottom: 30px;
+  font-family: DM Sans;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+.register-btn {
+  position: absolute;
+  width: 10%;
+  height: 40px;
+  top: 9px;
+  left: 70%;
+  border-radius: 20px;
+  background-color: #ff7373;
+  color: #ffffff;
+  border: none;
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+.signin-btn {
+  position: absolute;
+  width: 10%;
+  height: 40px;
+  top: 9px;
+  left: 85%;
+  border-radius: 20px;
+  background-color: #ff7373;
+  color: #ffffff;
+  border: none;
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.filter-container{
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  height: 30vh;
+  /* border: 1px solid red; */
+  position: relative;
+  left: 10%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.fillter-button-container {
+  border-radius: 20px;
+  height: 10vh;
+  border: none;
+  cursor: pointer;
+  background-color: none;
+}
+
+.filter-images{
+  width: 100%;
+  height: 150px;
+}
+
+
+.filter-names {
+  position: relative;
+  top: -6rem;
+  font-family: DM Sans;
+  font-size: large;
+  text-align: center;
+  color: #eed9d9;
+}
+
+
+.stories-line {
+  position: absolute;
+  top: 168px;
+  left: 298px;
+  font-family: DM Sans;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 39px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #000000;
+}
+.no-stories {
+  position: absolute;
+  font-family: DM Sans;
+  top: 325px;
+  left: 311px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 39px;
+  letter-spacing: 0em;
+  color: #8e8e8e;
+}

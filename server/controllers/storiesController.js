@@ -70,7 +70,7 @@ exports.getAllStories = async (req, res, next) => {
     console.log(allStories);
 
     if (!allStories.length) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "There are no stories avaiable",
       });
