@@ -1,5 +1,4 @@
 const User = require("../model/user.js");
-const fileUpload = require("express-fileupload");
 const cookieToken = require("../utils/cookieToken.js");
 
 exports.register = async (req, res, next) => {
@@ -49,10 +48,10 @@ exports.logIn = async (req, res, next) => {
       });
     }
 
-    const isPasswordCorrect = await User.isValidatedPassword(password);
+    const isPasswordCorrect = await user.isValidatedPassword(password);
 
     if (!isPasswordCorrect)
-    return next(new Error("You are password is wrong", 400));
+      return next(new Error("You are password is wrong", 400));
 
     cookieToken(user, res);
   } catch (error) {

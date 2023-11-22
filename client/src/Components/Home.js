@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import AddStories from "./addstoriesmodal/AddStoriesModal";
 import "./home.css";
 import axios from "axios";
 import styles from "./bookmarkpage.module.css";
@@ -22,6 +23,7 @@ const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userDetails, setUserDetails] = useState();
   const [stories, setStories] = useState([]);
+  const [openAddStoriesModal, setOpenAddStoriesModal] = useState(false);
 
   useEffect(() => {
     const result = axios.get(backendUrl);
@@ -60,14 +62,19 @@ const Home = () => {
 
   const handleChange = (event) => {
     event.preventDefault();
-    console.log(1);
     navigate("/bookmark");
+  };
+
+  const openModalHandler = () => {
+    setOpenAddStoriesModal(true);
   };
 
   return (
     <div className="header">
       <h3 className="app-name">SwipTory</h3>
-
+      {openAddStoriesModal && (
+        <AddStories setOpenAddStoriesModal={setOpenAddStoriesModal} userDetails={userDetails} />
+      )}
       {isLoggedIn ? (
         <div>
           <button className={styles.bookmarkBtn}>
@@ -78,7 +85,9 @@ const Home = () => {
               onClick={handleChange}
             />
           </button>
-          <button className={styles.addStoryBtn}>Add story</button>
+          <button onClick={openModalHandler} className={styles.addStoryBtn}>
+            Add story
+          </button>
           <img
             className={styles.bookmarkProfilePic}
             src={Profilepic}
@@ -145,9 +154,6 @@ const Home = () => {
           <h3 className="filter-names">India</h3>
         </button>
       </div>
-
-      {/* <p className="stories-line">Top Stories About food</p>
-      <p className="no-stories" >No stories Available</p> */}
     </div>
   );
 };
