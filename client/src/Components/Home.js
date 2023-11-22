@@ -20,16 +20,17 @@ const Home = () => {
   const [registerComponent, setregisterComponent] = useState(false);
   const [signinComponent, setsigninComponent] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userDetails, setUserDetails] = useState([]);
-  const []
+  const [userDetails, setUserDetails] = useState();
+  const [stories, setStories] = useState([]);
 
   useEffect(() => {
     const result = axios.get(backendUrl);
 
     result
       .then((res) => {
-        console.log(res.data.stories);
-
+        const data = res.data;
+        console.log(data.stories);
+        setStories(data.stories);
       })
       .catch((error) => {
         console.log(error);

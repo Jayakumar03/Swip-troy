@@ -54,31 +54,32 @@
   padding: 10px;
 }
 
-.filter-container{
+.filter-container {
   display: flex;
   justify-content: space-around;
   width: 80%;
-  height: 30vh;
+  height: 20vh;
   /* border: 1px solid red; */
   position: relative;
   left: 10%;
+  top: -10px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
 .fillter-button-container {
   border-radius: 20px;
-  height: 10vh;
+  width: 200px;
+  height: 15vh;
   border: none;
   cursor: pointer;
   background-color: none;
 }
 
-.filter-images{
+.filter-images {
   width: 100%;
   height: 150px;
 }
-
 
 .filter-names {
   position: relative;
@@ -88,7 +89,6 @@
   text-align: center;
   color: #eed9d9;
 }
-
 
 .stories-line {
   position: absolute;

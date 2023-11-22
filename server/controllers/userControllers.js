@@ -35,7 +35,6 @@ exports.logIn = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
-
     if (!username || !password) {
       return next(new Error("Username and password are required"));
     }
@@ -49,6 +48,11 @@ exports.logIn = async (req, res, next) => {
         message: "User is not registered",
       });
     }
+
+    const isPasswordCorrect = await User.isValidatedPassword(password);
+
+    if (!isPasswordCorrect)
+    return next(new Error("You are password is wrong", 400));
 
     cookieToken(user, res);
   } catch (error) {
