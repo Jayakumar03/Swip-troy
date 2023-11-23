@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AddStories from "./addstoriesmodal/AddStoriesModal";
+import AddStories from "./storiesmodal/AddStoriesModal";
+import EditStories from "./storiesmodal/AddStoriesModal";
+
 import "./home.css";
 import axios from "axios";
 import styles from "./bookmarkpage.module.css";
@@ -24,6 +26,8 @@ const Home = () => {
   const [userDetails, setUserDetails] = useState();
   const [stories, setStories] = useState([]);
   const [openAddStoriesModal, setOpenAddStoriesModal] = useState(false);
+  const [openEditStoriesModal, setOpenEditStoriesModal] = useState(false);
+
 
   useEffect(() => {
     const result = axios.get(backendUrl);
@@ -73,8 +77,16 @@ const Home = () => {
     <div className="header">
       <h3 className="app-name">SwipTory</h3>
       {openAddStoriesModal && (
-        <AddStories setOpenAddStoriesModal={setOpenAddStoriesModal} userDetails={userDetails} />
+        <AddStories
+          setOpenAddStoriesModal={setOpenAddStoriesModal}
+          userDetails={userDetails[0]}
+        />
       )}
+      {/* <EditStories
+        setOpenEditStoriesModal={setOpenEditStoriesModal}
+        userDetails={userDetails}
+        story={stories}
+      /> */}
       {isLoggedIn ? (
         <div>
           <button className={styles.bookmarkBtn}>

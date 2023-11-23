@@ -3,7 +3,7 @@ import Home from "./Components/Home";
 
 import Bookmarkpage from "./Components/Bookmarkpage";
 
-import AddStories from "./Components/addstoriesmodal/AddStoriesModal";
+// import EditStories from "./Components/storiesmodal/EditStoriesModal";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/bookmark" element={<Bookmarkpage />} />
 
-      {/* <Route path="/" element={<AddStories />} /> */}
+      {/* <Route path="/" element={<EditStories />} /> */}
     </Routes>
   );
 };

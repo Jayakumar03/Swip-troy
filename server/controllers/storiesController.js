@@ -67,7 +67,6 @@ exports.editStories = async (req, res, next) => {
 exports.getAllStories = async (req, res, next) => {
   try {
     const allStories = await Stories.find({});
-    console.log(allStories);
 
     if (!allStories.length) {
       return res.status(400).json({
