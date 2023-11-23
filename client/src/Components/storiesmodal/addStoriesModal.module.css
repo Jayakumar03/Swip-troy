@@ -20,7 +20,7 @@
   z-index: 3;
   border-radius: 20px;
 }
-.info{
+.info {
   color: grey;
   position: relative;
   left: 70%;
@@ -69,6 +69,10 @@
   border-radius: 15px;
   border: none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btnBorder {
+  border: 1px solid red;
 }
 
 .slideCloseBtn {
@@ -152,6 +156,17 @@
   font-weight: 600;
   color: black;
   font-size: 1rem;
+  position: relative;
+  left: 1.5%;
+}
+
+.alignImage{
+  position: relative;
+  left: 7%;
+  width: 70%;
+  font-weight: 600;
+  color: black;
+  font-size: 1rem;
 }
 
 /* Button */
@@ -161,7 +176,8 @@
   width: 90%;
   height: 50px;
   position: relative;
-  top: 30px;
+  top: 10%;
+  left: 5%;  
   margin: 0 auto;
   display: flex;
   gap: 1rem;
@@ -197,9 +213,46 @@
   border: none;
   width: 100px;
   height: 40px;
-
   border-radius: 25px;
   position: relative;
   left: 40%;
   font-size: large;
+}
+
+@media only screen and (max-width: 1250px) {
+  .alignHeading {
+    position: relative;
+    left: 9%;
+    width: 70%;
+    font-weight: 600;
+    color: black;
+    font-size: 1rem;
+  }
+
+  .alignCategory {
+    position: relative;
+    left: 4%;
+    width: 70%;
+    font-weight: 600;
+    color: black;
+    font-size: 1rem;
+  }
+
+  .alignDescription {
+    width: 70%;
+    font-weight: 600;
+    color: black;
+    font-size: 1rem;
+    position: relative;
+    left: 1px;
+  }
+
+  .alignImage{
+    position: relative;
+    left: 8.5%;
+    width: 70%;
+    font-weight: 600;
+    color: black;
+    font-size: 1rem;
+  }
 }

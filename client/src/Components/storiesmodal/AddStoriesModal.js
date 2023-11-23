@@ -2,6 +2,7 @@ import { useState } from "react";
 import addStoriesStyle from "./addStoriesModal.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -13,10 +14,14 @@ const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
       image: {
         url: "",
       },
-      category: "",
+      category: "" || "General",
       like: 0,
     },
   ]);
+
+  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/createstories`;
+
+  const userId = "655d726803973627c43dad79";
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...slides];
@@ -52,8 +57,30 @@ const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
     console.log("closed");
     setOpenAddStoriesModal(false);
   };
+
   const handleCreateStories = () => {
-    // make an api call create stories
+    if (numberOfSlides.length < 3) {
+      toast.error("Minimum three slides are required");
+    } else {
+      const result = axios.post(backendUrl, {
+        bookmark: false,
+        userId: userId,
+        slides: slides,
+      });
+
+      result
+        .then((res) => {
+          const data = res.data;
+          if (data.success) {
+            toast("Successfully created stories");
+            closeModal();
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+          toast.error("Not Success registered");
+        });
+    }
   };
 
   const previousSlide = () => {
@@ -61,20 +88,30 @@ const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
   };
 
   const nextSlide = () => {
-    console.log("hi", numberOfSlides.length);
-    if (currentSlide < numberOfSlides.length-1) {
-      setCurrentSlide(currentSlide + 1);
-      setSlides((prevSlides) => [
-        ...prevSlides,
-        {
-          heading: "",
-          description: "",
-          image: {
-            url: "",
+    console.log(numberOfSlides.length);
+    if (
+      !slides[currentSlide].heading ||
+      !slides[currentSlide].description ||
+      !slides[currentSlide].image["url"] ||
+      !slides[currentSlide].category
+    ) {
+      toast.error("All input are required");
+      console.log("error in input filed");
+    } else {
+      if (currentSlide < numberOfSlides.length - 1) {
+        setCurrentSlide(currentSlide + 1);
+        setSlides((prevSlides) => [
+          ...prevSlides,
+          {
+            heading: "",
+            description: "",
+            image: {
+              url: "",
+            },
+            like: 0,
           },
-          like: 0,
-        },
-      ]);
+        ]);
+      }
     }
   };
 
@@ -89,7 +126,12 @@ const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
           {numberOfSlides.map((slide, index) => {
             return (
               <div className={addStoriesStyle.slide}>
-                <button key={index} className={addStoriesStyle.slideBtn}>
+                <button
+                  key={index}
+                  className={`${addStoriesStyle.slideBtn} ${
+                    index === currentSlide ? addStoriesStyle.btnBorder : ""
+                  }`}
+                >
                   Slide{index + 1}
                   <button
                     className={addStoriesStyle.slideCloseBtn}
@@ -151,7 +193,7 @@ const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
               type="text"
               name="image"
               placeholder="Image URL"
-              className={`${addStoriesStyle.input} ${addStoriesStyle.alignHeading}`}
+              className={`${addStoriesStyle.input} ${addStoriesStyle.alignImage}`}
               value={slides[currentSlide].image.url}
               onChange={(e) =>
                 handleSlideChange(currentSlide, "image", e.target.value)
@@ -170,6 +212,11 @@ const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
               onChange={(e) =>
                 handleSlideChange(currentSlide, "category", e.target.value)
               }
+              onBlur={(e) => {
+                if (e.target.value) {
+                  handleSlideChange(currentSlide, "category", e.target.value);
+                }
+              }}
             >
               <option value="food ">food </option>
               <option value="health and fitness">health and fitness</option>
