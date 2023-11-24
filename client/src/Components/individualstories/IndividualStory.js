@@ -1,61 +1,217 @@
+import { useState, useEffect } from "react";
+import Register from "../Register";
 import styles from "./individualStory.module.css";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const IndividualStory = () => {
-  const image =
-    "https://media.gettyimages.com/id/157472912/photo/ice-cream-composition-on-a-bowl.jpg?s=612x612&w=gi&k=20&c=AniWX1OhaarUxCkgjUoKiA3bKVllK0upCylW6Z0PCMQ=";
+//! need state form home.js   storyId, isLoggedIn, setregisterComponent,setOpenIndividualStoryModal,
+const IndividualStory = ({}) => {
+  const [story, setStory] = useState();
+  const [currentslide, setCurrentSlide] = useState(0);
+
+  const storyId = "656049db55cab47fd44d0008";
+  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/${storyId}`;
+  const backendUrlEdit = `${process.env.REACT_APP_BACKEND_URL}stories/editstory/${storyId}`;
+
+  useEffect(() => {
+    const result = axios.get(backendUrl);
+
+    result
+      .then((result) => {
+        if (result.data.success) {
+          setStory(result.data.story);
+          console.log(story);
+        } else {
+          toast.error(result.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
+
+  const previousSlide = () => {
+    setCurrentSlide((currentslide) => {
+      if (currentslide > 0) {
+        return currentslide - 1;
+      }
+      console.log(currentslide);
+      return currentslide;
+    });
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((currentslide) => {
+      if (story && story.slides && currentslide < story.slides.length - 1) {
+        return currentslide + 1;
+      }
+      console.log(currentslide);
+      return currentslide;
+    });
+  };
+
+  const handleBookmark = () => {
+    console.log("clikced");
+    setStory((previousStory) => {
+      const updatedStory = {
+        ...previousStory,
+        bookmark: story.bookmark ? false : true,
+      };
+
+      console.log("clikced");
+      // make put call
+      axios
+        .put(backendUrlEdit, updatedStory)
+        .then((result) => {
+          if (result.data.success) {
+            console.log(updatedStory);
+          }
+        })
+        .catch(() => {
+          toast.error("error");
+        });
+
+      return updatedStory;
+    });
+  };
+
+  const closeModal = () => {
+    // setOpenIndividualStoryModal(false);
+    // !
+  };
+
+  const handleLike = () => {
+    // if (setregisterComponent) {
+    setStory((previousStory) => {
+      const updatedSlides = previousStory.slides.map((slide, index) => {
+        if (index === currentslide) {
+          return { ...slide, like: slide.like + 1 };
+        } else {
+          return slide;
+        }
+      });
+
+      const updatedStory = { ...previousStory, slides: updatedSlides };
+
+      // make put call
+      axios
+        .put(backendUrlEdit, updatedStory)
+        .then((result) => {
+          if (result.data.success) {
+            console.log(updatedStory);
+          }
+        })
+        .catch(() => {
+          toast.error("error");
+        });
+
+      return updatedStory;
+    });
+
+    // }
+    //  else {
+    //   closeModal();
+    //   setregisterComponent(true);
+    // }
+
+    //! uncomment after intergated with home page
+  };
 
   return (
     <div className={styles.background}>
-      <div
-        className={`${styles.container} ${styles.backgroundImage}`}
-        style={{ backgroundImage: `url(${image})` }}
-      >
-        <div className={styles.slideContainer}>
-          <span className={styles.slide}></span>
-          <span className={styles.slide}></span>
-          <span className={styles.slide}></span>
-          <span className={styles.slide}></span>
-          <span className={styles.slide}></span>
-          <span className={styles.slide}></span>
-        </div>
+      {story && story.slides && story.slides[currentslide] && (
+        <div
+          className={`${styles.container} ${styles.backgroundImage}`}
+          style={{
+            backgroundImage: `url(${story.slides[currentslide].image.url})`,
+          }}
+        >
+          <div className={styles.slideContainer}>
+            {story.slides.map((slide, index) =>
+              index < currentslide ? (
+                <span
+                  key={index}
+                  className={`${styles.slide} ${styles.dark}`}
+                ></span>
+              ) : (
+                <span key={index} className={styles.slide}></span>
+              )
+            )}
+          </div>
 
-        <div className={styles.ButtonContainer}>
-          <button className={styles.slideCloseBtn}>
-            <i class="fa-solid fa-x"></i>
-          </button>
-
-          <button className={styles.slideCloseBtn}>
-            <i class="fa-regular fa-paper-plane"></i>
-          </button>
-        </div>
-
-        <div>
-          <button className={styles.leftSlide}>
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <button className={styles.rightSlide}>
-            <i class="fa-solid fa-chevron-right"></i>
-          </button>
-        </div>
-
-        <div className={styles.detailsContainer}>
-          <h1 className={styles.align}>Heading</h1>
-          <p className={styles.descriptionAlign}>
-            Inspirational designs, illustrations, and graphic elements from the
-            world’s best designers.
-          </p>
-
-          <div className={styles.ButtonContainerBookmark}>
-            <button className={styles.slideBookmarkBtn}>
-              <i class="fa-solid fa-bookmark"></i>
+          <div className={styles.ButtonContainer}>
+            <button className={styles.slideCloseBtn} onClick={closeModal}>
+              <i class="fa-solid fa-x"></i>
             </button>
 
-            <button className={styles.slideBookmarkBtn}>
-              <i class="fa-solid fa-heart"></i>
+            <button
+              className={styles.slideCloseBtn}
+              onClick={() => {
+                toast.success("🦄 Link Copied !", {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }}
+            >
+              <i class="fa-regular fa-paper-plane"></i>
             </button>
           </div>
+
+          <div>
+            <button className={styles.leftSlide} onClick={previousSlide}>
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button className={styles.rightSlide} onClick={nextSlide}>
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+
+          {/* Heading and description */}
+          <div className={styles.detailsContainer}>
+            <h1 className={styles.align}>
+              {story.slides[currentslide].heading}
+            </h1>
+            <p className={styles.descriptionAlign}>
+              {story.slides[currentslide].description}
+            </p>
+
+            {/* Bookmark and heart button */}
+            <div className={styles.ButtonContainerBookmark}>
+              {story.bookmark ? (
+                <button
+                  className={`${styles.slideBookmarkBtn} ${styles.bookmarkedBtn}`}
+                  onClick={handleBookmark}
+                >
+                  <i class="fa-solid fa-bookmark"></i>
+                </button>
+              ) : (
+                <button
+                  className={styles.slideBookmarkBtn}
+                  onClick={handleBookmark}
+                >
+                  <i class="fa-solid fa-bookmark"></i>
+                </button>
+              )}
+
+              <button className={styles.slideBookmarkBtn} onClick={handleLike}>
+                <i class="fa-solid fa-heart"></i>
+                <span className={styles.likeNumber}>
+                  {story.slides[currentslide].like}
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      <ToastContainer />
     </div>
   );
 };

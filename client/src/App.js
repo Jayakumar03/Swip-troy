@@ -10,7 +10,6 @@ const App = () => {
     <Routes>
       {/* <Route path="/" element={<Home />} /> */}
       <Route path="/bookmark" element={<Bookmarkpage />} />
-
       <Route path="/" element={<Indi />} />
     </Routes>
   );

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AddStories from "./storiesmodal/AddStoriesModal";
 import EditStories from "./storiesmodal/AddStoriesModal";
+import IndividualStory from "./individualstories/IndividualStory";
 
 import "./home.css";
 import axios from "axios";
@@ -16,7 +17,7 @@ import filterimg4 from "../Image/fillimg4.png";
 import Register from "./Register";
 import SignIn from "./Signin";
 
-const Home = () => {
+const Home = ({ storyId }) => {
   const navigate = useNavigate();
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/getallstories`;
 
@@ -27,7 +28,7 @@ const Home = () => {
   const [stories, setStories] = useState([]);
   const [openAddStoriesModal, setOpenAddStoriesModal] = useState(false);
   const [openEditStoriesModal, setOpenEditStoriesModal] = useState(false);
-
+  const [openIndividualStoryModal, setOpenIndividualStoryModal] = useState(false);
 
   useEffect(() => {
     const result = axios.get(backendUrl);
@@ -79,7 +80,7 @@ const Home = () => {
       {openAddStoriesModal && (
         <AddStories
           setOpenAddStoriesModal={setOpenAddStoriesModal}
-          userDetails={userDetails[0]}
+          userDetails={userDetails}
         />
       )}
       {/* <EditStories
@@ -87,6 +88,8 @@ const Home = () => {
         userDetails={userDetails}
         story={stories}
       /> */}
+
+   {/* {openIndividualStoryModal && <IndividualStory setOpenIndividualStoryModal={setOpenIndividualStoryModal} setregisterComponent={setregisterComponent}  />} */}
       {isLoggedIn ? (
         <div>
           <button className={styles.bookmarkBtn}>

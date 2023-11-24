@@ -15,6 +15,6 @@ router.route("/bookmarkedStories").get(bookmarkedStories);
 router.route("/filteredstories").get(filteredStories);
 router.route("/:id").get(getIndividualStories);
 router.route("/createstories").post(createStories);
-router.route("editstories/:id").put(editStories);
+router.route("/editstory/:id").put(editStories);
 
 module.exports = router;

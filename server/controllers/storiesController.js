@@ -48,11 +48,11 @@ exports.editStories = async (req, res, next) => {
       options
     );
 
-    console.log(job);
+    console.log(updatedStory);
 
-    if (!updatedStory) {
-      next(new Error("There is no Story with specified id"));
-    }
+    // if (!updatedStory) {
+    //   next(new Error("There is no Story with specified id"));
+    // }
     res.status(200).json({
       success: true,
       message: "Successfully updated job post",
@@ -133,8 +133,8 @@ exports.getIndividualStories = async (req, res, next) => {
   try {
     const individualStories = await Stories.findById(req.params.id);
 
-    if (!individualStories.length) {
-      res.status(400).json({
+    if (!individualStories) {
+      return res.status(400).json({
         success: false,
         message: "There are no stories avaiable ",
       });
@@ -142,7 +142,7 @@ exports.getIndividualStories = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      stories: stories,
+      story: individualStories,
     });
   } catch (error) {
     console.log(error);

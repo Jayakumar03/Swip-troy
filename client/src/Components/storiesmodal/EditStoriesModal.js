@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const EditStories = ({ setOpenAddStoriesModal, userDetails, story }) => {
+const EditStories = ({ setOpenAddStoriesModal, userDetails, storyId }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [numberOfSlides, setNumberOfSlides] = useState([]);
   const [updateSlide, setUpdateSlides] = useState(story);
@@ -46,7 +46,7 @@ const EditStories = ({ setOpenAddStoriesModal, userDetails, story }) => {
   };
 
   const closeModal = () => {
-    console.log("closed");
+    console.log("closed1280");
     setOpenAddStoriesModal(false);
   };
 
