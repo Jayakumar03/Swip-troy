@@ -12,7 +12,7 @@ const {
 
 router.route("/getallstories").get(getAllStories);
 router.route("/bookmarkedStories").get(bookmarkedStories);
-router.route("/filteredstories").get(filteredStories);
+router.route("/filteredstories").post(filteredStories);
 router.route("/:id").get(getIndividualStories);
 router.route("/createstories").post(createStories);
 router.route("/editstory/:id").put(editStories);

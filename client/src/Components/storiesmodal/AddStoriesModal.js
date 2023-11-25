@@ -219,7 +219,7 @@ const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
               }}
             >
               <option value="food ">food </option>
-              <option value="health and fitness">health and fitness</option>
+              <option value="health and fitness">health</option>
               <option value="travel">travel</option>
               <option value="movies">movies</option>
               <option value="education">education</option>

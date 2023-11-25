@@ -62,7 +62,7 @@
   /* border: 1px solid red; */
   position: relative;
   left: 10%;
-  top: -10px;
+  top: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -112,4 +112,14 @@
   line-height: 39px;
   letter-spacing: 0em;
   color: #8e8e8e;
+}
+
+.filter-heading {
+  font-size: 1.5rem;
+  color: black;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  margin-top: 7%;
+  font-weight: 800;
 }

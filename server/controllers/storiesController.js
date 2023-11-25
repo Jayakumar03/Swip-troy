@@ -108,16 +108,28 @@ exports.bookmarkedStories = async (req, res, next) => {
 
 exports.filteredStories = async (req, res, next) => {
   try {
-    const { filters } = req.body;
+    const { category } = req.body;
 
-    const filteredStories = await Stories.find({ category: { $in: filters } });
+    console.log(category);
+
+    const filteredStories = await Stories.find({ "slides.category": category });
 
     if (!filteredStories.length) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
-        message: "There are no stories avaiable for the filters",
+        message: "There are no stories available for the filters",
       });
     }
+
+    console.log(filteredStories);
+
+    const allStories = await Stories.find();
+    console.log(
+      allStories.map((story) =>
+        story.slides.map((slide) => slide.category === "food")
+      ),
+      "at debug"
+    );
 
     res.status(200).json({
       success: true,
