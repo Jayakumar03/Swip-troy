@@ -64,9 +64,10 @@
   top: 5px;
   left: 42.5%;
   margin: 0 auto;
-  width: 10%;top: 2px;
+  width: 10%;
+  top: 2px;
   height: 40px;
-  
+
   border-radius: 10px;
   background-color: #ff7373;
   color: #ffffff;
@@ -77,4 +78,28 @@
   text-align: center;
   cursor: pointer;
   padding: 10px;
+}
+
+.yourStoryHeading {
+  font-size: 1.5rem;
+  color: black;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  margin-top: 7%;
+  font-weight: 800;
+}
+
+/* Semore button in your story */
+
+.editBtn {
+  display: block;
+  width: 30%;
+  height: 25px;
+  position: relative;
+  top: 65%;
+  left: 40%;
+  z-index: 4;
+  border-radius: 10px;
+  border: 1px solid red;
 }

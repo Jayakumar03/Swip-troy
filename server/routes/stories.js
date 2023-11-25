@@ -8,10 +8,12 @@ const {
   getIndividualStories,
   createStories,
   editStories,
+  userStories,
 } = require("../controllers/storiesController.js");
 
 router.route("/getallstories").get(getAllStories);
-router.route("/bookmarkedStories").get(bookmarkedStories);
+router.route("/bookmarkedStories/:id").get(bookmarkedStories);
+router.route("/userstories/:id").get(userStories);
 router.route("/filteredstories").post(filteredStories);
 router.route("/:id").get(getIndividualStories);
 router.route("/createstories").post(createStories);

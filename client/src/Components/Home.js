@@ -21,11 +21,13 @@ import Food from "./Filters/Food";
 import Health from "./Filters/Health";
 import Movies from "./Filters/Movies";
 import Education from "./Filters/Education";
+import TopTrendingStories from "./TopTrending/TopTrendingStories";
 
-const Home = ({ storyId }) => {
+import YourStroy from "./YourStory/YourStory";
+
+const Home = () => {
   const navigate = useNavigate();
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/getallstories`;
-
   const [registerComponent, setregisterComponent] = useState(false);
   const [signinComponent, setsigninComponent] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -42,6 +44,8 @@ const Home = ({ storyId }) => {
     movies: false,
     education: false,
   });
+
+  // const userId = "655d726803973627c43dad79";
 
   useEffect(() => {
     const result = axios.get(backendUrl);
@@ -63,23 +67,38 @@ const Home = ({ storyId }) => {
   }, []);
 
   const handleFoodButtonClick = () => {
-    setShowFilter((prevState) => ({ ...prevState, food: true }));
+    setShowFilter((prevState) => ({
+      ...prevState,
+      food: prevState.food ? false : true,
+    }));
   };
 
   const handleTravelButtonClick = () => {
-    setShowFilter((prevState) => ({ ...prevState, travel: true }));
+    setShowFilter((prevState) => ({
+      ...prevState,
+      travel: prevState.travel ? false : true,
+    }));
   };
 
   const handleHealthButtonClick = () => {
-    setShowFilter((prevState) => ({ ...prevState, health: true }));
+    setShowFilter((prevState) => ({
+      ...prevState,
+      health: prevState.health ? false : true,
+    }));
   };
 
   const handleMoviesButtonClick = () => {
-    setShowFilter((prevState) => ({ ...prevState, movies: true }));
+    setShowFilter((prevState) => ({
+      ...prevState,
+      movies: prevState.movies ? false : true,
+    }));
   };
 
   const handleEducationButtonClick = () => {
-    setShowFilter((prevState) => ({ ...prevState, education: true }));
+    setShowFilter((prevState) => ({
+      ...prevState,
+      education: prevState.education ? false : true,
+    }));
   };
 
   const handleRegisterClick = () => {
@@ -100,7 +119,7 @@ const Home = ({ storyId }) => {
 
   const handleChange = (event) => {
     event.preventDefault();
-    navigate("/bookmark");
+    navigate("/bookmark", { state: { userId: userDetails._id } });
   };
 
   const openModalHandler = () => {
@@ -113,14 +132,9 @@ const Home = ({ storyId }) => {
       {openAddStoriesModal && (
         <AddStories
           setOpenAddStoriesModal={setOpenAddStoriesModal}
-          userDetails={userDetails}
+          userId={userDetails._id}
         />
       )}
-      {/* <EditStories
-        setOpenEditStoriesModal={setOpenEditStoriesModal}
-        userDetails={userDetails}
-        story={stories}
-      /> */}
 
       {/* {openIndividualStoryModal && <IndividualStory setOpenIndividualStoryModal={setOpenIndividualStoryModal} setregisterComponent={setregisterComponent}  />} */}
       {isLoggedIn ? (
@@ -217,31 +231,46 @@ const Home = ({ storyId }) => {
         </button>
       </div>
 
+      {/*  Comeback to resolve  
+ 
+      {isLoggedIn ? (
+        <YourStroy
+          userId={userDetails._id}
+          setOpenEditStoriesModal={setOpenEditStoriesModal}
+          openEditStoriesModal={openEditStoriesModal}
+        />
+      ) : (
+        "null"
+      )} */}
+
       {/* filters */}
       {showFilter.travel && (
         <p className="filter-heading">Top Stories About travel</p>
       )}
-      {showFilter.travel && <Travel />}
+      {showFilter.travel && <Travel setOpenIndividualStoryModal={setOpenIndividualStoryModal} />}
 
       {showFilter.food && (
         <p className="filter-heading">Top Stories About food</p>
       )}
-      {showFilter.food && <Food />}
+      {showFilter.food && <Food setOpenIndividualStoryModal={setOpenIndividualStoryModal} />}
 
       {showFilter.health && (
         <p className="filter-heading">Top Stories About health</p>
       )}
-      {showFilter.health && <Health />}
+      {showFilter.health && <Health setOpenIndividualStoryModal={setOpenIndividualStoryModal}  />}
 
       {showFilter.movies && (
         <p className="filter-heading">Top Stories About movies</p>
       )}
-      {showFilter.movies && <Movies />}
+      {showFilter.movies && <Movies  setOpenIndividualStoryModal={setOpenIndividualStoryModal}/>}
 
       {showFilter.education && (
         <p className="filter-heading">Top Stories About education</p>
       )}
-      {showFilter.education && <Education />}
+      {showFilter.education && <Education setOpenIndividualStoryModal={setOpenIndividualStoryModal} />}
+
+      <TopTrendingStories setOpenIndividualStoryModal={setOpenIndividualStoryModal}/>
+      <TopTrendingStories  setOpenIndividualStoryModal={setOpenIndividualStoryModal} />
     </div>
   );
 };

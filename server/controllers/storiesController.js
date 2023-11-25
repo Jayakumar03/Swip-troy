@@ -56,7 +56,7 @@ exports.editStories = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Successfully updated job post",
-      updatedStory,
+      updatedStory: updatedStory,
     });
   } catch (error) {
     console.log(error);
@@ -87,12 +87,17 @@ exports.getAllStories = async (req, res, next) => {
 
 exports.bookmarkedStories = async (req, res, next) => {
   try {
-    const bookmarkedStories = await Stories.find({ bookmark: true });
+    const userId = req.params.id;
+
+    const bookmarkedStories = await Stories.find({
+      userId: userId,
+      bookmark: true,
+    });
 
     if (!bookmarkedStories.length) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
-        message: "There are no bookmarked stories avaiable",
+        message: "There are no bookmarked stories available",
       });
     }
 
@@ -110,8 +115,6 @@ exports.filteredStories = async (req, res, next) => {
   try {
     const { category } = req.body;
 
-    console.log(category);
-
     const filteredStories = await Stories.find({ "slides.category": category });
 
     if (!filteredStories.length) {
@@ -120,16 +123,6 @@ exports.filteredStories = async (req, res, next) => {
         message: "There are no stories available for the filters",
       });
     }
-
-    console.log(filteredStories);
-
-    const allStories = await Stories.find();
-    console.log(
-      allStories.map((story) =>
-        story.slides.map((slide) => slide.category === "food")
-      ),
-      "at debug"
-    );
 
     res.status(200).json({
       success: true,
@@ -141,9 +134,34 @@ exports.filteredStories = async (req, res, next) => {
   }
 };
 
+exports.userStories = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+
+    console.log(userId);
+
+    const userStories = await Stories.find({ userId: userId });
+
+    if (!userStories.length) {
+      return res.status(400).json({
+        success: false,
+        message: "There are no stories available form this user",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      userStories: userStories,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 exports.getIndividualStories = async (req, res, next) => {
   try {
-    const individualStories = await Stories.findById(req.params.id);
+    const individualStories = await Stories.findById({ userId: req.params.id });
 
     if (!individualStories) {
       return res.status(400).json({

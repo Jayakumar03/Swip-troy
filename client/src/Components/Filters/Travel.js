@@ -1,7 +1,12 @@
 import Filter from "./Filter";
 
-const Travel = () => {
-  return <Filter category={"travel"} />;
+const Travel = ({ setOpenIndividualStoryModal }) => {
+  return (
+    <Filter
+      category={"travel"}
+      setOpenIndividualStoryModal={setOpenIndividualStoryModal}
+    />
+  );
 };
 
 export default Travel;

@@ -4,16 +4,33 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const EditStories = ({ setOpenAddStoriesModal, userDetails, storyId }) => {
+const EditStories = ({
+  setOpenEditStoriesModal,
+  storyId,
+  openEditStoriesModal,
+}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [numberOfSlides, setNumberOfSlides] = useState([]);
-  const [updateSlide, setUpdateSlides] = useState(story);
+  const [updateSlide, setUpdateSlides] = useState();
 
-  const userId = "655d726803973627c43dad79";
-
-  const storyId = "655eda01351ed957ff2d3404";
+  // const userId = "655d726803973627c43dad79";
 
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/editstories/${storyId}`;
+
+  useEffect(() => {
+    const result = axios.edit(backendUrl, {
+      update: updateSlide,
+    });
+
+    result
+      .then((res) => {
+        const data = res.data;
+        setUpdateSlides(data.updatedStory);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...updateSlide];
@@ -47,7 +64,7 @@ const EditStories = ({ setOpenAddStoriesModal, userDetails, storyId }) => {
 
   const closeModal = () => {
     console.log("closed1280");
-    setOpenAddStoriesModal(false);
+    setOpenEditStoriesModal(false);
   };
 
   const handleUpdateStories = () => {
@@ -55,8 +72,6 @@ const EditStories = ({ setOpenAddStoriesModal, userDetails, storyId }) => {
       toast.error("Minimum three updateSlide are required");
     } else {
       const result = axios.put(backendUrl, {
-        bookmark: false,
-        userId: userId,
         slide: updateSlide,
       });
 

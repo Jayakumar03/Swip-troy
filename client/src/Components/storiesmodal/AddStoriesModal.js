@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
+const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [numberOfSlides, setNumberOfSlides] = useState([]);
   const [slides, setSlides] = useState([
@@ -21,7 +21,9 @@ const AddStories = ({ setOpenAddStoriesModal, userDetails }) => {
 
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/createstories`;
 
-  const userId = "655d726803973627c43dad79";
+  // const userId = "655d726803973627c43dad79";
+
+  console.log(userId);
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...slides];
