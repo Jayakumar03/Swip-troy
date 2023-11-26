@@ -13,6 +13,7 @@ const EditStories = ({
   const [numberOfSlides, setNumberOfSlides] = useState([]);
   const [updateSlide, setUpdateSlides] = useState();
 
+
   const backendUrlIndividualStory = `${process.env.REACT_APP_BACKEND_URL}stories/${storyId}`;
 
   const backendUrlEdit = `${process.env.REACT_APP_BACKEND_URL}stories/editstory/${storyId}`;
@@ -35,7 +36,6 @@ const EditStories = ({
     fetch();
   }, []);
 
-  console.log(updateSlide);
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...updateSlide];
@@ -53,22 +53,21 @@ const EditStories = ({
     console.log(numberOfSlides.length);
     if (numberOfSlides.length < 6) {
       setNumberOfSlides((prevSlides) => [...prevSlides, prevSlides.length + 1]);
-      setUpdateSlides((previousSlide) => [
-        ...previousSlide,
+      setUpdateSlides((prevSlides) => [
+        ...prevSlides,
         {
           heading: "",
           description: "",
           image: {
             url: "",
           },
-          category: "",
           like: 0,
         },
       ]);
     } else {
       toast.error("Maximium six updateSlide are allowed");
     }
-  };
+  };;
 
   const deleteSlide = () => {
     console.log(numberOfSlides.length);
@@ -125,17 +124,6 @@ const EditStories = ({
     } else {
       if (currentSlide < numberOfSlides.length - 1) {
         setCurrentSlide(currentSlide + 1);
-        setUpdateSlides((prevSlides) => [
-          ...prevSlides,
-          {
-            heading: "",
-            description: "",
-            image: {
-              url: "",
-            },
-            like: 0,
-          },
-        ]);
       }
     }
   };

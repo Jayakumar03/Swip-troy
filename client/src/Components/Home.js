@@ -66,7 +66,7 @@ const Home = () => {
     if (userIdInLocalStorage) {
       setUserId(userIdInLocalStorage);
     }
-  }, [userId]);
+  }, []);
 
   const handleFoodButtonClick = () => {
     setShowFilter((prevState) => ({

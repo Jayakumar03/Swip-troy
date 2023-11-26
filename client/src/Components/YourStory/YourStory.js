@@ -16,6 +16,8 @@ const YourStroy = ({ userId, isLoggedIn }) => {
   const [openEditStoriesModal, setOpenEditStoriesModal] = useState(false);
   const [storyId, setStoryId] = useState(null);
 
+  console.log(userId);
+
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/userstories/${userId}`;
   useEffect(() => {
     const fetch = () => {
@@ -31,8 +33,8 @@ const YourStroy = ({ userId, isLoggedIn }) => {
         });
     };
 
-    if (isLoggedIn) fetch();
-  }, [isLoggedIn]);
+    if (isLoggedIn && userId) fetch();
+  }, [isLoggedIn, userId]);
 
   const handleSeeMoreIndiaClick = () => {
     setVisibleIndiaImages(visibleIndiaImages + 4);
