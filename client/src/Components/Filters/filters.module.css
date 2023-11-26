@@ -7,6 +7,7 @@
   max-height: fit-content;
   position: relative;
   top: 30px;
+  left: 2%;
   margin: 0 auto;
   margin-bottom: 10%;
   /* border: 1px solid red; */
@@ -97,8 +98,8 @@
   width: 30%;
   height: 25px;
   position: relative;
-  top: 65%;
-  left: 40%;
+  top: 67%;
+  margin: 0 auto;
   z-index: 4;
   border-radius: 10px;
   border: 1px solid red;

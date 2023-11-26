@@ -75,7 +75,7 @@ const Filter = ({ category }) => {
                         story.slides[0] &&
                         story.slides[0].heading}
                     </h3>
-                    <p className={filters.decsription}>
+                    <p className={filters.decsription}> 
                       {story.slides &&
                         story.slides[0] &&
                         story.slides[0].description}

@@ -6,7 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const YourStroy = ({ userId }) => {
+const YourStroy = ({ userId, isLoggedIn }) => {
   const navigate = useNavigate();
   const initialVisibleIndiaImages = 4;
   const [stories, setStories] = useState();
@@ -18,23 +18,28 @@ const YourStroy = ({ userId }) => {
 
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/userstories/${userId}`;
   useEffect(() => {
-    const result = axios.get(backendUrl);
+    const fetch = () => {
+      const result = axios.get(backendUrl);
 
-    result
-      .then((res) => {
-        const data = res.data;
-        setStories(data.userStories);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+      result
+        .then((res) => {
+          const data = res.data;
+          setStories(data.userStories);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    if (isLoggedIn) fetch();
+  }, [isLoggedIn]);
 
   const handleSeeMoreIndiaClick = () => {
     setVisibleIndiaImages(visibleIndiaImages + 4);
   };
 
   const HandleEditModal = (e) => {
+    e.stopPropagation();
     setOpenEditStoriesModal(true);
     setStoryId(e.target.getAttribute("id"));
   };
@@ -70,7 +75,11 @@ const YourStroy = ({ userId }) => {
                   key={story._id}
                   onClick={individualStoryPage}
                 >
-                  <div className={filters.wrappered}>
+                  <div
+                    className={filters.wrappered}
+                    id={story._id}
+                    onClick={individualStoryPage}
+                  >
                     <h3 className={filters.heading}>
                       {story.slides && story.slides[0].heading}
                     </h3>
@@ -86,18 +95,16 @@ const YourStroy = ({ userId }) => {
                   >
                     Edit <i class="fa-solid fa-pen"></i>
                   </button>
-
-                  {openEditStoriesModal ? (
-                    <EditStories
-                      setOpenEditStoriesModal={setOpenEditStoriesModal}
-                      storyId={storyId}
-                      openEditStoriesModal={openEditStoriesModal}
-                    />
-                  ) : null}
                 </div>
               );
             })}
-
+          {openEditStoriesModal ? (
+            <EditStories
+              setOpenEditStoriesModal={setOpenEditStoriesModal}
+              storyId={storyId}
+              openEditStoriesModal={openEditStoriesModal}
+            />
+          ) : null}
           {stories && stories.length > visibleIndiaImages && (
             <button
               className={filters.seeMoreBtn}

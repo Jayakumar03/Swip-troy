@@ -52,7 +52,7 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
           setIsLoggedIn(true);
           Cookies.set("token", data.token);
           localStorage.setItem("token", data.token);
-           localStorage.setItem("userId" , data.user._id );
+          localStorage.setItem("userId", data.user._id);
           onClose();
           setUserDetails(data.user);
           toast("Success registered");
@@ -65,6 +65,7 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
 
     setUserName("");
     setPassword("");
+    window.location.reload();
   };
 
   const handleClose = () => {

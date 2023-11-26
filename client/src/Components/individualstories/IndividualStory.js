@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import Register from "../Register";
+import SignIn from "../Signin";
 import styles from "./individualStory.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams, useNavigate } from "react-router-dom";
 
-//! need state form home.js   storyId, isLoggedIn, setregisterComponent,setOpenIndividualStoryModal,
-const IndividualStory = () => {
+//! need state form home.js   storyId, isLoggedIn, setLoginComponent,setOpenIndividualStoryModal,
+const IndividualStory = ({handleSigninClick}) => {
   const [story, setStory] = useState();
   const [currentslide, setCurrentSlide] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginComponent, setLoginComponent] = useState(false);
 
   const { id } = useParams();
   const storyId = id;
@@ -37,6 +39,9 @@ const IndividualStory = () => {
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
+
+    const userId = localStorage.getItem("userId");
+    if (userId) setIsLoggedIn(true);
   }, []);
 
   const previousSlide = () => {
@@ -60,28 +65,32 @@ const IndividualStory = () => {
   };
 
   const handleBookmark = () => {
-    console.log("clikced");
-    setStory((previousStory) => {
-      const updatedStory = {
-        ...previousStory,
-        bookmark: story.bookmark ? false : true,
-      };
+    if (!isLoggedIn) {
+      setLoginComponent(true);
+      toast.error("Login Plese !!");
+    } else {
+      setStory((previousStory) => {
+        const updatedStory = {
+          ...previousStory,
+          bookmark: story.bookmark ? false : true,
+        };
 
-      console.log("clikced");
-      // make put call
-      axios
-        .put(backendUrlEdit, updatedStory)
-        .then((result) => {
-          if (result.data.success) {
-            console.log(updatedStory);
-          }
-        })
-        .catch(() => {
-          toast.error("error");
-        });
+        console.log("clikced");
+        // make put call
+        axios
+          .put(backendUrlEdit, updatedStory)
+          .then((result) => {
+            if (result.data.success) {
+              console.log(updatedStory);
+            }
+          })
+          .catch(() => {
+            toast.error("error");
+          });
 
-      return updatedStory;
-    });
+        return updatedStory;
+      });
+    }
   };
 
   const closeModal = () => {
@@ -89,40 +98,33 @@ const IndividualStory = () => {
   };
 
   const handleLike = () => {
-    // if (setregisterComponent) {
-    setStory((previousStory) => {
-      const updatedSlides = previousStory.slides.map((slide, index) => {
-        if (index === currentslide) {
-          return { ...slide, like: slide.like + 1 };
-        } else {
-          return slide;
-        }
-      });
-
-      const updatedStory = { ...previousStory, slides: updatedSlides };
-
-      // make put call
-      axios
-        .put(backendUrlEdit, updatedStory)
-        .then((result) => {
-          if (result.data.success) {
-            console.log(updatedStory);
+    if (!isLoggedIn) {
+      toast.error("Login Plese !!");
+    } else {
+      setStory((previousStory) => {
+        const updatedSlides = previousStory.slides.map((slide, index) => {
+          if (index === currentslide) {
+            return { ...slide, like: slide.like + 1 };
+          } else {
+            return slide;
           }
-        })
-        .catch(() => {
-          toast.error("error");
         });
 
-      return updatedStory;
-    });
+        const updatedStory = { ...previousStory, slides: updatedSlides };
+        axios
+          .put(backendUrlEdit, updatedStory)
+          .then((result) => {
+            if (result.data.success) {
+              console.log(updatedStory);
+            }
+          })
+          .catch(() => {
+            toast.error("error");
+          });
 
-    // }
-    //  else {
-    //   closeModal();
-    //   setregisterComponent(true);
-    // }
-
-    //! uncomment after intergated with home page
+        return updatedStory;
+      });
+    }
   };
 
   return (
@@ -215,6 +217,7 @@ const IndividualStory = () => {
               </button>
             </div>
           </div>
+          {loginComponent && <SignIn setLoginComponent={setLoginComponent} parent="individualStory"  />}
         </div>
       )}
 

@@ -16,6 +16,7 @@ import filterimg3 from "../Image/fillimg3.jpg";
 import filterimg4 from "../Image/fillimg4.png";
 import Register from "./Register";
 import SignIn from "./Signin";
+import Logout from "./auth/Logout";
 import Travel from "./Filters/Travel";
 import Food from "./Filters/Food";
 import Health from "./Filters/Health";
@@ -35,7 +36,7 @@ const Home = () => {
   const [userId, setUserId] = useState();
   const [stories, setStories] = useState([]);
   const [openAddStoriesModal, setOpenAddStoriesModal] = useState(false);
-
+  const [openLogoutModal, setOpenLogoutModal] = useState(false);
   const [showFilter, setShowFilter] = useState({
     travel: false,
     food: false,
@@ -43,8 +44,6 @@ const Home = () => {
     movies: false,
     education: false,
   });
-
-  // const userId = "655d726803973627c43dad79";
 
   useEffect(() => {
     const result = axios.get(backendUrl);
@@ -67,7 +66,7 @@ const Home = () => {
     if (userIdInLocalStorage) {
       setUserId(userIdInLocalStorage);
     }
-  }, []);
+  }, [userId]);
 
   const handleFoodButtonClick = () => {
     setShowFilter((prevState) => ({
@@ -129,6 +128,10 @@ const Home = () => {
     setOpenAddStoriesModal(true);
   };
 
+  const handleHamButtonClick = () => {
+    setOpenLogoutModal(true);
+  };
+
   return (
     <div className="header">
       <h3 className="app-name">SwipTory</h3>
@@ -159,13 +162,14 @@ const Home = () => {
             alt=""
             style={{ width: "40px", height: "40px" }}
           />
-          <button className={styles.hamBtn}>
+          <button className={styles.hamBtn} onClick={handleHamButtonClick}>
             <img
               src={Hamburgericon}
               alt=""
               style={{ width: "18px", height: "18px" }}
             />
           </button>
+          {openLogoutModal ? <Logout /> : null}
         </div>
       ) : (
         <div>
@@ -187,6 +191,7 @@ const Home = () => {
               onClose={handleCloseSignin}
               setIsLoggedIn={setIsLoggedIn}
               setUserDetails={setUserDetails}
+              parent="home"
             />
           )}
         </div>
@@ -244,7 +249,9 @@ const Home = () => {
 
       {/*  Comeback to resolve  */}
 
-      {isLoggedIn ? <YourStroy userId={userId} /> : "null"}
+      {isLoggedIn ? (
+        <YourStroy userId={userId} isLoggedIn={isLoggedIn} />
+      ) : null}
 
       {/* filters */}
       {showFilter.travel && (

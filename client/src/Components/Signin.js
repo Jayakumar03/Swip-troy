@@ -11,7 +11,13 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
 
-const SignIn = ({ onClose, setIsLoggedIn, setUserDetails }) => {
+const SignIn = ({
+  onClose,
+  setIsLoggedIn,
+  setUserDetails,
+  setLoginComponent,
+  parent,
+}) => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -64,7 +70,11 @@ const SignIn = ({ onClose, setIsLoggedIn, setUserDetails }) => {
   };
 
   const handleClose = () => {
-    onClose();
+    if (parent === "home") {
+      onClose();
+    } else if (parent === "individualStory") {
+      setLoginComponent(false);
+    }
   };
 
   return (

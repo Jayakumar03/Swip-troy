@@ -6,7 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const TopTrendingStories = ({ setOpenIndividualStoryModal }) => {
+const TopTrendingStories = ({ setOpenIndividualStoryModa}) => {
   const navigate = useNavigate();
   const initialVisibleIndiaImages = 4;
   const [stories, setStories] = useState();
@@ -49,7 +49,7 @@ const TopTrendingStories = ({ setOpenIndividualStoryModal }) => {
         <h1>No stories are available</h1>
       ) : (
         <>
-          {stories &&
+          {stories && 
             stories.length > 0 &&
             stories.slice(0, visibleIndiaImages).map((story) => {
               return (
