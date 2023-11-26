@@ -1,10 +1,11 @@
 import Filter from "./Filter";
+import { useState} from "react";
 
-const Travel = ({ setOpenIndividualStoryModal }) => {
+const Travel = () => {
+  
   return (
     <Filter
       category={"travel"}
-      setOpenIndividualStoryModal={setOpenIndividualStoryModal}
     />
   );
 };

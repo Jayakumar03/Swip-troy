@@ -8,23 +8,20 @@ import filters from "./Filters/filters.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useLocation } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
 const Bookmarkpage = () => {
+  const navigate = useNavigate();
   const initialVisibleIndiaImages = 4;
   const [stories, setStories] = useState();
   const [visibleIndiaImages, setVisibleIndiaImages] = useState(
     initialVisibleIndiaImages
   );
 
-  const location = useLocation();
-  if (location.state) {
-    console.log(location.state.userId);
-  } else {
-    console.log("State is not defined");
-  }
+  const { id } = useParams();
+  const userId = id;
+  console.log(id);
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/bookmarkedStories/${location.state.userId}`;
+  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/bookmarkedStories/${userId}`;
   console.log(backendUrl);
 
   useEffect(() => {
