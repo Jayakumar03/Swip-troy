@@ -30,6 +30,13 @@
   height: 100%;
 }
 
+.NoMoreStories {
+  position: relative;
+  top: 70%;
+  text-align: center;
+  margin: 0 auto;
+  color: grey;
+}
 .wrappered {
   display: block;
   position: relative;
@@ -68,7 +75,6 @@
   width: 10%;
   top: 2px;
   height: 40px;
-
   border-radius: 10px;
   background-color: #ff7373;
   color: #ffffff;

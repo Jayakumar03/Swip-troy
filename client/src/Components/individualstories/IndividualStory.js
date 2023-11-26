@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SignIn from "../Signin";
+import SignIn from "../auth/Signin";
 import styles from "./individualStory.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useParams, useNavigate } from "react-router-dom";
 
 //! need state form home.js   storyId, isLoggedIn, setLoginComponent,setOpenIndividualStoryModal,
-const IndividualStory = ({handleSigninClick}) => {
+const IndividualStory = ({ handleSigninClick }) => {
   const [story, setStory] = useState();
   const [currentslide, setCurrentSlide] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -217,7 +217,12 @@ const IndividualStory = ({handleSigninClick}) => {
               </button>
             </div>
           </div>
-          {loginComponent && <SignIn setLoginComponent={setLoginComponent} parent="individualStory"  />}
+          {loginComponent && (
+            <SignIn
+              setLoginComponent={setLoginComponent}
+              parent="individualStory"
+            />
+          )}
         </div>
       )}
 

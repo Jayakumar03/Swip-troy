@@ -9,7 +9,7 @@ import IndividualStory from "../individualstories/IndividualStory";
 const Filter = ({ category }) => {
   const navigate = useNavigate();
   const initialVisibleIndiaImages = 4;
-  const [stories, setStories] = useState();
+  const [stories, setStories] = useState([]);
   const [visibleIndiaImages, setVisibleIndiaImages] = useState(
     initialVisibleIndiaImages
   );
@@ -48,7 +48,9 @@ const Filter = ({ category }) => {
   return (
     <>
       {stories && stories.length === 0 ? (
-        <h1>No stories are available</h1>
+        <h3 className={filters.NoMoreStories}>
+          No stories are available for this filter
+        </h3>
       ) : (
         <>
           {stories &&
@@ -75,16 +77,12 @@ const Filter = ({ category }) => {
                         story.slides[0] &&
                         story.slides[0].heading}
                     </h3>
-                    <p className={filters.decsription}> 
+                    <p className={filters.decsription}>
                       {story.slides &&
                         story.slides[0] &&
                         story.slides[0].description}
                     </p>
                   </div>
-
-                  {/* {openIndividualStoryModal ? (
-                    <IndividualStory storyId={story._id} />
-                  ) : null} */}
                 </div>
               );
             })}

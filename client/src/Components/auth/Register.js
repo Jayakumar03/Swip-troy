@@ -1,31 +1,29 @@
 import React, { useState } from "react";
-import styles from "./signin.module.css";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import cross from "../Image/close.png";
+import register from "./register.module.css";
+import cross from "../../Image/close.png";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
 
-const SignIn = ({
-  onClose,
-  setIsLoggedIn,
-  setUserDetails,
-  setLoginComponent,
-  parent,
-}) => {
-  const [userName, setUsername] = useState("");
+const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
+  const navigate = useNavigate();
+
+  // backend url
+  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}register`;
+  console.log(backendUrl);
+
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}login`;
-
   const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+    setUserName(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -57,37 +55,34 @@ const SignIn = ({
           localStorage.setItem("userId", data.user._id);
           onClose();
           setUserDetails(data.user);
-          toast("Enjoy the stories!");
+          toast("Success registered");
         }
       })
       .catch((error) => {
         console.log(error.message);
-        toast.error("Wrong password!");
+        toast.error("Not Success registered");
       });
 
-    setUsername("");
+    setUserName("");
     setPassword("");
+    window.location.reload();
   };
 
   const handleClose = () => {
-    if (parent === "home") {
-      onClose();
-    } else if (parent === "individualStory") {
-      setLoginComponent(false);
-    }
+    onClose();
   };
 
   return (
-    <div className={styles.signinBackground}>
-      <div className={styles.signinContainer}>
-        <button className={styles.signinCrossBtn} onClick={handleClose}>
+    <div className={register.background}>
+      <div className={register.registerContainer}>
+        <button className={register.crossBtn} onClick={handleClose}>
           <img src={cross} alt="" style={{ width: "15px", height: "15px" }} />
         </button>
-        <p className={styles.signinSwip}>Sign In to SwipTory</p>
+        <p className={register.regiSwip}>Register to SwipTory</p>
         <form onSubmit={handleFormSubmit}>
-          <label className={styles.signinRlab1}>Username</label>
+          <label className={register.rlab1}>Username</label>
           <TextField
-            className={styles.signinRegiform1}
+            className={register.regiform1}
             type="text"
             placeholder="Enter userName"
             value={userName}
@@ -96,9 +91,9 @@ const SignIn = ({
               style: { height: "30px", width: "200px" },
             }}
           />
-          <label className={styles.signinRlab2}>Password</label>
+          <label className={register.rlab2}>Password</label>
           <TextField
-            className={styles.signinRegiform2}
+            className={register.regiform2}
             type={showPassword ? "text" : "password"}
             placeholder="Enter password"
             value={password}
@@ -116,13 +111,11 @@ const SignIn = ({
               style: { height: "30px", width: "200px" },
             }}
           />
-          <button type="submit" className={styles.signinRegiBtn}>
-            Sign In
+          <button type="submit" className={register.regiBtn}>
+            Register
           </button>
         </form>
-        <p className={styles.signinError}>Please enter valid userName</p>
       </div>
-
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -141,4 +134,4 @@ const SignIn = ({
   );
 };
 
-export default SignIn;
+export default Register;
