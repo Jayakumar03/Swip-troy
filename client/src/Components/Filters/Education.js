@@ -1,8 +1,8 @@
 import Filter from "./Filter";
 import filters from "./filters.module.css";
 
-const Education = ({setOpenIndividualStoryModal}) => {
-  return <Filter category={"education"} setOpenIndividualStoryModal={setOpenIndividualStoryModal} />;
+const Education = ({setOpenIndividualStoryModal,openIndividualStoryModal}) => {
+  return <Filter category={"education"} setOpenIndividualStoryModal={setOpenIndividualStoryModal} openIndividualStoryModal={openIndividualStoryModal} />;
 };
 
 export default Education;

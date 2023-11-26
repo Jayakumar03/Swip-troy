@@ -11,7 +11,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
 
-const SignIn = ({ onClose, setIsLoggedIn,setUserDetails }) => {
+const SignIn = ({ onClose, setIsLoggedIn, setUserDetails }) => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -48,8 +48,9 @@ const SignIn = ({ onClose, setIsLoggedIn,setUserDetails }) => {
           setIsLoggedIn(true);
           Cookies.set("token", data.token);
           localStorage.setItem("token", data.token);
+          localStorage.setItem("userId", data.user._id);
           onClose();
-          setUserDetails(data.user)
+          setUserDetails(data.user);
           toast("Enjoy the stories!");
         }
       })

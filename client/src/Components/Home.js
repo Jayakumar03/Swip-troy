@@ -32,11 +32,10 @@ const Home = () => {
   const [signinComponent, setsigninComponent] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userDetails, setUserDetails] = useState();
+  const [userId, setUserId] = useState();
   const [stories, setStories] = useState([]);
   const [openAddStoriesModal, setOpenAddStoriesModal] = useState(false);
-  const [openEditStoriesModal, setOpenEditStoriesModal] = useState(false);
-  const [openIndividualStoryModal, setOpenIndividualStoryModal] =
-    useState(false);
+
   const [showFilter, setShowFilter] = useState({
     travel: false,
     food: false,
@@ -61,8 +60,12 @@ const Home = () => {
       });
 
     const tokenInLocalStorage = localStorage.getItem("token");
+    const userIdInLocalStorage = localStorage.getItem("userId");
     if (tokenInLocalStorage) {
       setIsLoggedIn(true);
+    }
+    if (userIdInLocalStorage) {
+      setUserId(userIdInLocalStorage);
     }
   }, []);
 
@@ -119,7 +122,7 @@ const Home = () => {
 
   const handleChange = (event) => {
     event.preventDefault();
-    navigate("/bookmark", { state: { userId: userDetails._id } });
+    navigate(`/bookmark/${userId}`);
   };
 
   const openModalHandler = () => {
@@ -132,7 +135,7 @@ const Home = () => {
       {openAddStoriesModal && (
         <AddStories
           setOpenAddStoriesModal={setOpenAddStoriesModal}
-          userId={userDetails._id}
+          userId={userId}
         />
       )}
 
@@ -195,6 +198,14 @@ const Home = () => {
           onClick={handleFoodButtonClick}
         >
           <img src={filterimg1} alt="" className="filter-images" />
+          <h3 className="filter-names">All</h3>
+        </button>
+
+        <button
+          className="fillter-button-container"
+          onClick={handleFoodButtonClick}
+        >
+          <img src={filterimg1} alt="" className="filter-images" />
           <h3 className="filter-names">Food</h3>
         </button>
 
@@ -231,46 +242,38 @@ const Home = () => {
         </button>
       </div>
 
-      {/*  Comeback to resolve  
- 
-      {isLoggedIn ? (
-        <YourStroy
-          userId={userDetails._id}
-          setOpenEditStoriesModal={setOpenEditStoriesModal}
-          openEditStoriesModal={openEditStoriesModal}
-        />
-      ) : (
-        "null"
-      )} */}
+      {/*  Comeback to resolve  */}
+
+      {isLoggedIn ? <YourStroy userId={userId} /> : "null"}
 
       {/* filters */}
       {showFilter.travel && (
         <p className="filter-heading">Top Stories About travel</p>
       )}
-      {showFilter.travel && <Travel setOpenIndividualStoryModal={setOpenIndividualStoryModal} />}
+      {showFilter.travel && <Travel />}
 
       {showFilter.food && (
         <p className="filter-heading">Top Stories About food</p>
       )}
-      {showFilter.food && <Food setOpenIndividualStoryModal={setOpenIndividualStoryModal} />}
+      {showFilter.food && <Food />}
 
       {showFilter.health && (
         <p className="filter-heading">Top Stories About health</p>
       )}
-      {showFilter.health && <Health setOpenIndividualStoryModal={setOpenIndividualStoryModal}  />}
+      {showFilter.health && <Health />}
 
       {showFilter.movies && (
         <p className="filter-heading">Top Stories About movies</p>
       )}
-      {showFilter.movies && <Movies  setOpenIndividualStoryModal={setOpenIndividualStoryModal}/>}
+      {showFilter.movies && <Movies />}
 
       {showFilter.education && (
         <p className="filter-heading">Top Stories About education</p>
       )}
-      {showFilter.education && <Education setOpenIndividualStoryModal={setOpenIndividualStoryModal} />}
+      {showFilter.education && <Education />}
 
-      <TopTrendingStories setOpenIndividualStoryModal={setOpenIndividualStoryModal}/>
-      <TopTrendingStories  setOpenIndividualStoryModal={setOpenIndividualStoryModal} />
+      <TopTrendingStories />
+      <TopTrendingStories />
     </div>
   );
 };
