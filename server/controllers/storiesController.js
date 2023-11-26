@@ -37,6 +37,8 @@ exports.editStories = async (req, res, next) => {
     const storyId = req.params.id;
 
     console.log(storyId);
+    console.log(storyId, "api hitting");
+
 
     const update = req.body;
 
@@ -50,9 +52,10 @@ exports.editStories = async (req, res, next) => {
 
     console.log(updatedStory);
 
-    // if (!updatedStory) {
-    //   next(new Error("There is no Story with specified id"));
-    // }
+    if (!updatedStory) {
+      next(new Error("There is no Story with specified id"));
+    }
+
     res.status(200).json({
       success: true,
       message: "Successfully updated job post",
@@ -161,7 +164,8 @@ exports.userStories = async (req, res, next) => {
 
 exports.getIndividualStories = async (req, res, next) => {
   try {
-    const individualStories = await Stories.findById({ userId: req.params.id });
+    const individualStories = await Stories.findById(req.params.id);
+
 
     if (!individualStories) {
       return res.status(400).json({

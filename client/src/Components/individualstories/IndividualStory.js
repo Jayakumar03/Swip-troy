@@ -4,13 +4,21 @@ import styles from "./individualStory.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useParams, useNavigate } from "react-router-dom";
 
 //! need state form home.js   storyId, isLoggedIn, setregisterComponent,setOpenIndividualStoryModal,
-const IndividualStory = ({}) => {
+const IndividualStory = () => {
   const [story, setStory] = useState();
   const [currentslide, setCurrentSlide] = useState(0);
 
-  const storyId = "656049db55cab47fd44d0008";
+  const { id } = useParams();
+  const storyId = id;
+  console.log(id);
+
+  const navigate = useNavigate();
+
+  // const storyId = "656049db55cab47fd44d0008";
+
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/${storyId}`;
   const backendUrlEdit = `${process.env.REACT_APP_BACKEND_URL}stories/editstory/${storyId}`;
 
@@ -77,8 +85,7 @@ const IndividualStory = ({}) => {
   };
 
   const closeModal = () => {
-    // setOpenIndividualStoryModal(false);
-    // !
+    navigate("/");
   };
 
   const handleLike = () => {

@@ -14,16 +14,12 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
       image: {
         url: "",
       },
-      category: "" || "General",
+      category: "",
       like: 0,
     },
   ]);
 
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/createstories`;
-
-  // const userId = "655d726803973627c43dad79";
-
-  console.log(userId);
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...slides];

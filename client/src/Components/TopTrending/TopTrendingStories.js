@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import filters from "../Filters/filters.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const TopTrendingStories = ({setOpenIndividualStoryModal}) => {
+const TopTrendingStories = ({ setOpenIndividualStoryModal }) => {
+  const navigate = useNavigate();
   const initialVisibleIndiaImages = 4;
   const [stories, setStories] = useState();
   const [visibleIndiaImages, setVisibleIndiaImages] = useState(
@@ -31,8 +34,10 @@ const TopTrendingStories = ({setOpenIndividualStoryModal}) => {
     setVisibleIndiaImages(visibleIndiaImages + 4);
   };
 
-  const handleIndividualStories = () => {
-    console.log("hi form stories container");
+  const individualStoryPage = (e) => {
+    const storyId = e.target.getAttribute("id");
+    console.log(e.target.getAttribute("id"));
+    navigate(`/individualstory/${storyId}`);
   };
 
   return (
@@ -49,7 +54,8 @@ const TopTrendingStories = ({setOpenIndividualStoryModal}) => {
             stories.slice(0, visibleIndiaImages).map((story) => {
               return (
                 <div
-                  onClick={handleIndividualStories}
+                  id={story._id}
+                  onClick={individualStoryPage}
                   className={`${filters.storycontainer} ${filters.background} ${filters.container}`}
                   style={{
                     backgroundImage: `url(${

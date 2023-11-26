@@ -13,24 +13,29 @@ const EditStories = ({
   const [numberOfSlides, setNumberOfSlides] = useState([]);
   const [updateSlide, setUpdateSlides] = useState();
 
-  // const userId = "655d726803973627c43dad79";
+  const backendUrlIndividualStory = `${process.env.REACT_APP_BACKEND_URL}stories/${storyId}`;
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/editstories/${storyId}`;
+  const backendUrlEdit = `${process.env.REACT_APP_BACKEND_URL}stories/editstory/${storyId}`;
 
   useEffect(() => {
-    const result = axios.edit(backendUrl, {
-      update: updateSlide,
-    });
-
-    result
-      .then((res) => {
-        const data = res.data;
-        setUpdateSlides(data.updatedStory);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const fetch = async () => {
+      const result = await axios
+        .get(backendUrlIndividualStory)
+        .then((res) => {
+          const data = res.data;
+          console.log(data);
+          setUpdateSlides(data.story.slides);
+          setNumberOfSlides(data.story.slides);
+          console.log(updateSlide);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetch();
   }, []);
+
+  console.log(updateSlide);
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...updateSlide];
@@ -48,6 +53,18 @@ const EditStories = ({
     console.log(numberOfSlides.length);
     if (numberOfSlides.length < 6) {
       setNumberOfSlides((prevSlides) => [...prevSlides, prevSlides.length + 1]);
+      setUpdateSlides((previousSlide) => [
+        ...previousSlide,
+        {
+          heading: "",
+          description: "",
+          image: {
+            url: "",
+          },
+          category: "",
+          like: 0,
+        },
+      ]);
     } else {
       toast.error("Maximium six updateSlide are allowed");
     }
@@ -57,6 +74,7 @@ const EditStories = ({
     console.log(numberOfSlides.length);
     if (numberOfSlides.length > 3) {
       setNumberOfSlides((prevSlides) => prevSlides.slice(0, -1));
+      setUpdateSlides((prevSlides) => prevSlides.slice(0, -1));
     } else {
       toast.error("Minimum three updateSlide are required");
     }
@@ -71,8 +89,8 @@ const EditStories = ({
     if (numberOfSlides.length < 3) {
       toast.error("Minimum three updateSlide are required");
     } else {
-      const result = axios.put(backendUrl, {
-        slide: updateSlide,
+      const result = axios.put(backendUrlEdit, {
+        slides: updateSlide,
       });
 
       result
@@ -169,7 +187,11 @@ const EditStories = ({
               name="heading"
               placeholder="Your heading"
               className={`${addStoriesStyle.input} ${addStoriesStyle.align}`}
-              value={updateSlide[currentSlide].heading}
+              value={
+                updateSlide &&
+                updateSlide[currentSlide] &&
+                updateSlide[currentSlide].heading
+              }
               onChange={(e) =>
                 handleSlideChange(currentSlide, "heading", e.target.value)
               }
@@ -185,7 +207,11 @@ const EditStories = ({
               name="description"
               placeholder="Your Description"
               className={`${addStoriesStyle.input} ${addStoriesStyle.alignDescription}`}
-              value={updateSlide[currentSlide].description}
+              value={
+                updateSlide &&
+                updateSlide[currentSlide] &&
+                updateSlide[currentSlide].description
+              }
               onChange={(e) =>
                 handleSlideChange(currentSlide, "description", e.target.value)
               }
@@ -201,7 +227,12 @@ const EditStories = ({
               name="image"
               placeholder="Image URL"
               className={`${addStoriesStyle.input} ${addStoriesStyle.alignImage}`}
-              value={updateSlide[currentSlide].image.url}
+              value={
+                updateSlide &&
+                updateSlide[currentSlide] &&
+                updateSlide[currentSlide].image &&
+                updateSlide[currentSlide].image.url
+              }
               onChange={(e) =>
                 handleSlideChange(currentSlide, "image", e.target.value)
               }
@@ -215,7 +246,11 @@ const EditStories = ({
             <select
               id="filters"
               className={`${addStoriesStyle.input} ${addStoriesStyle.alignCategory}`}
-              value={updateSlide[currentSlide].category}
+              value={
+                updateSlide &&
+                updateSlide[currentSlide] &&
+                updateSlide[currentSlide].category
+              }
               onChange={(e) =>
                 handleSlideChange(currentSlide, "category", e.target.value)
               }

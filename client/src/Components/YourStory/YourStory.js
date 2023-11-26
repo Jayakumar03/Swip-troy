@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import filters from "../Filters/filters.module.css";
-import EditStories from "../storiesmodal/EditStoriesModal" 
+import EditStories from "../storiesmodal/EditStoriesModal";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const YourStroy = ({
-  userId,
-  setOpenEditStoriesModal,
-  openEditStoriesModal,
-}) => {
+const YourStroy = ({ userId }) => {
+  const navigate = useNavigate();
   const initialVisibleIndiaImages = 4;
   const [stories, setStories] = useState();
   const [visibleIndiaImages, setVisibleIndiaImages] = useState(
     initialVisibleIndiaImages
   );
+  const [openEditStoriesModal, setOpenEditStoriesModal] = useState(false);
+  const [storyId, setStoryId] = useState(null);
 
   const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/userstories/${userId}`;
-
-//   const storyId = "655eda01351ed957ff2d3404";
-
   useEffect(() => {
     const result = axios.get(backendUrl);
 
@@ -37,9 +34,16 @@ const YourStroy = ({
     setVisibleIndiaImages(visibleIndiaImages + 4);
   };
 
-  const HandleEditModal  = () => {
-    setOpenEditStoriesModal(true)
-  }
+  const HandleEditModal = (e) => {
+    setOpenEditStoriesModal(true);
+    setStoryId(e.target.getAttribute("id"));
+  };
+
+  const individualStoryPage = (e) => {
+    const storyId = e.target.getAttribute("id");
+    console.log(e.target.getAttribute("id"));
+    navigate(`/individualstory/${storyId}`);
+  };
 
   return (
     <>
@@ -62,6 +66,9 @@ const YourStroy = ({
                       story.slides[0].image.url
                     })`,
                   }}
+                  id={story._id}
+                  key={story._id}
+                  onClick={individualStoryPage}
                 >
                   <div className={filters.wrappered}>
                     <h3 className={filters.heading}>
@@ -72,10 +79,21 @@ const YourStroy = ({
                     </p>
                   </div>
 
-                  <button className={filters.editBtn} onClick={HandleEditModal}>
+                  <button
+                    className={filters.editBtn}
+                    onClick={HandleEditModal}
+                    id={story._id}
+                  >
                     Edit <i class="fa-solid fa-pen"></i>
-                    <EditStories setOpenEditStoriesModal={setOpenEditStoriesModal} storyId={story._id} openEditStoriesModal={openEditStoriesModal} />
                   </button>
+
+                  {openEditStoriesModal ? (
+                    <EditStories
+                      setOpenEditStoriesModal={setOpenEditStoriesModal}
+                      storyId={storyId}
+                      openEditStoriesModal={openEditStoriesModal}
+                    />
+                  ) : null}
                 </div>
               );
             })}
