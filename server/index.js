@@ -13,7 +13,8 @@ app.options("*", cors());
 app.use(
   cors({
     origin: ["https://swip-troy-frontend.vercel.app"],
-    methods:["post","get","put","delete"],
+    methods: ["post", "get", "put", "delete"],
+    credentials:true
   })
 );
 
