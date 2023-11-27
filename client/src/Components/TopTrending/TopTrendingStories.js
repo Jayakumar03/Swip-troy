@@ -29,6 +29,7 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
           console.log(error);
         });
     };
+    fetch();
   }, []);
 
   const handleSeeMoreIndiaClick = () => {
