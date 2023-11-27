@@ -39,7 +39,6 @@ exports.editStories = async (req, res, next) => {
     console.log(storyId);
     console.log(storyId, "api hitting");
 
-
     const update = req.body;
 
     const options = { new: true };
@@ -91,11 +90,14 @@ exports.getAllStories = async (req, res, next) => {
 exports.bookmarkedStories = async (req, res, next) => {
   try {
     const userId = req.params.id;
+    console.log("User ID:", userId); // Add this line
 
     const bookmarkedStories = await Stories.find({
       userId: userId,
       bookmark: true,
     });
+
+    console.log(bookmarkedStories);
 
     if (!bookmarkedStories.length) {
       return res.status(400).json({
@@ -113,7 +115,6 @@ exports.bookmarkedStories = async (req, res, next) => {
     res.status(500).json({ error: "An error occurred" });
   }
 };
-
 exports.filteredStories = async (req, res, next) => {
   try {
     const { category } = req.body;
@@ -165,7 +166,6 @@ exports.userStories = async (req, res, next) => {
 exports.getIndividualStories = async (req, res, next) => {
   try {
     const individualStories = await Stories.findById(req.params.id);
-
 
     if (!individualStories) {
       return res.status(400).json({

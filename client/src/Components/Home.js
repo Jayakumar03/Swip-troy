@@ -138,68 +138,65 @@ const Home = () => {
 
   return (
     <div className="header">
-      <h3 className="app-name">SwipTory</h3>
-      {openAddStoriesModal && (
-        <AddStories
-          setOpenAddStoriesModal={setOpenAddStoriesModal}
-          userId={userId}
-        />
-      )}
-
-      {/* {openIndividualStoryModal && <IndividualStory setOpenIndividualStoryModal={setOpenIndividualStoryModal} setregisterComponent={setregisterComponent}  />} */}
-      {isLoggedIn ? (
-        <div>
-          <button className={styles.bookmarkBtn}>
-            <img
-              className={styles.bookMarkIcon}
-              src={Bookmarkicon}
-              alt=""
-              onClick={handleChange}
-            />
-          </button>
-          <button onClick={openModalHandler} className={styles.addStoryBtn}>
-            Add story
-          </button>
-          <img
-            className={styles.bookmarkProfilePic}
-            src={Profilepic}
-            alt=""
-            style={{ width: "40px", height: "40px" }}
+      <div className="navbar">
+        {" "}
+        <h3 className="app-name">SwipTory</h3>
+        {openAddStoriesModal && (
+          <AddStories
+            setOpenAddStoriesModal={setOpenAddStoriesModal}
+            userId={userId}
           />
-          <button className={styles.hamBtn} onClick={handleHamButtonClick}>
+        )}
+        {/* {openIndividualStoryModal && <IndividualStory setOpenIndividualStoryModal={setOpenIndividualStoryModal} setregisterComponent={setregisterComponent}  />} */}
+        {isLoggedIn ? (
+          <div>
+            <button className={styles.bookmarkBtn} onClick={handleChange}>
+              <i class="fa-solid fa-bookmark"></i>Bookmark
+            </button>
+            <button onClick={openModalHandler} className={styles.addStoryBtn}>
+              Add story
+            </button>
             <img
-              src={Hamburgericon}
+              className={styles.bookmarkProfilePic}
+              src={Profilepic}
               alt=""
-              style={{ width: "18px", height: "18px" }}
+              style={{ width: "40px", height: "40px" }}
             />
-          </button>
-          {openLogoutModal ? <Logout /> : null}
-        </div>
-      ) : (
-        <div>
-          <button className="register-btn" onClick={handleRegisterClick}>
-            Register Now
-          </button>
-          {registerComponent && (
-            <Register
-              onClose={handleCloseRegister}
-              setIsLoggedIn={setIsLoggedIn}
-              setUserDetails={setUserDetails}
-            />
-          )}
-          <button className="signin-btn" onClick={handleSigninClick}>
-            Login
-          </button>
-          {signinComponent && (
-            <SignIn
-              onClose={handleCloseSignin}
-              setIsLoggedIn={setIsLoggedIn}
-              setUserDetails={setUserDetails}
-              parent="home"
-            />
-          )}
-        </div>
-      )}
+            <button className={styles.hamBtn} onClick={handleHamButtonClick}>
+              <img
+                src={Hamburgericon}
+                alt=""
+                style={{ width: "18px", height: "18px" }}
+              />
+            </button>
+            {openLogoutModal ? <Logout /> : null}
+          </div>
+        ) : (
+          <div>
+            <button className="register-btn" onClick={handleRegisterClick}>
+              Register Now
+            </button>
+            {registerComponent && (
+              <Register
+                onClose={handleCloseRegister}
+                setIsLoggedIn={setIsLoggedIn}
+                setUserDetails={setUserDetails}
+              />
+            )}
+            <button className="signin-btn" onClick={handleSigninClick}>
+              Login
+            </button>
+            {signinComponent && (
+              <SignIn
+                onClose={handleCloseSignin}
+                setIsLoggedIn={setIsLoggedIn}
+                setUserDetails={setUserDetails}
+                parent="home"
+              />
+            )}
+          </div>
+        )}
+      </div>
 
       <div className="filter-container">
         <button
@@ -250,8 +247,6 @@ const Home = () => {
           <h3 className="filter-names">Education</h3>
         </button>
       </div>
-
-      {/*  Comeback to resolve  */}
 
       {isLoggedIn ? (
         <YourStroy userId={userId} isLoggedIn={isLoggedIn} />

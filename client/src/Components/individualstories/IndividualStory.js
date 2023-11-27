@@ -15,7 +15,6 @@ const IndividualStory = ({ handleSigninClick }) => {
 
   const { id } = useParams();
   const storyId = id;
-  console.log(id);
 
   const navigate = useNavigate();
 
@@ -68,23 +67,21 @@ const IndividualStory = ({ handleSigninClick }) => {
       setLoginComponent(true);
       toast.error("Login Plese !!");
     } else {
-      setStory(async (previousStory) => {
-        const updatedStory = {
-          ...previousStory,
-          bookmark: story.bookmark ? false : true,
-        };
+      const previousStory = story;
+      const updatedStory = {
+        ...previousStory,
+        bookmark: story.bookmark ? false : true,
+      };
 
-        try {
-          const result = await axios.put(backendUrlEdit, updatedStory);
-          if (result.data.success) {
-            console.log(updatedStory);
-          }
-        } catch (error) {
-          toast.error("error");
+      try {
+        const result = await axios.put(backendUrlEdit, updatedStory);
+        if (result.data.success) {
+          console.log(updatedStory, "updated at api");
+          setStory(updatedStory);
         }
-
-        return updatedStory;
-      });
+      } catch (error) {
+        toast.error("error");
+      }
     }
   };
 
@@ -96,7 +93,7 @@ const IndividualStory = ({ handleSigninClick }) => {
     if (!isLoggedIn) {
       toast.error("Login Plese !!");
     } else {
-      setStory(async (previousStory) => {
+      setStory((previousStory) => {
         const updatedSlides = previousStory.slides.map((slide, index) => {
           if (index === currentslide) {
             return { ...slide, like: slide.like + 1 };
@@ -107,12 +104,15 @@ const IndividualStory = ({ handleSigninClick }) => {
 
         const updatedStory = { ...previousStory, slides: updatedSlides };
         try {
-          const result = await axios.put(backendUrlEdit, updatedStory);
+          const result = axios.put(backendUrlEdit, updatedStory);
           if (result.data.success) {
             console.log(updatedStory);
+            setStory(updatedStory);
+          } else {
+            toast.error("error");
           }
-        } catch (error) {
-          toast.error("error");
+        } catch(error) {
+          console.log(error);
         }
 
         return updatedStory;

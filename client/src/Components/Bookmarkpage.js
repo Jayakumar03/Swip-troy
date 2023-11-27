@@ -19,25 +19,24 @@ const Bookmarkpage = () => {
 
   const { id } = useParams();
   const userId = id;
-  console.log(id);
 
-  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/bookmarkedStories/${userId}`;
-  console.log(backendUrl);
+  // const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/bookmarkedStories/${userId}`;
+  const backendUrl = `http://localhost:4000/api/v1/stories/bookmarkedStories/${userId}`;
 
   useEffect(() => {
     const fetch = async () => {
-      const result = await axios.get(backendUrl);
-
-      result
-        .then((res) => {
-          const data = res.data;
-          console.log(data);
+      try {
+        const result = await axios.get(backendUrl);
+        const data = result.data;
+        console.log(data);
+        if (data.success) {
           setStories(data.bookmarkedStories);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
+    fetch();
   }, []);
 
   const handleSeeMoreIndiaClick = () => {
@@ -67,7 +66,7 @@ const Bookmarkpage = () => {
       </button>
 
       <>
-        <h1 className={filters.yourStoryHeading}>Your Bookmarks</h1>
+        <h1 className={styles.yourStoryHeading}>Your Bookmarks</h1>
         {stories && stories.length === 0 ? (
           <h1>No stories are available</h1>
         ) : (
@@ -77,7 +76,7 @@ const Bookmarkpage = () => {
               stories.slice(0, visibleIndiaImages).map((story) => {
                 return (
                   <div
-                    className={`${filters.storycontainer} ${filters.background} ${filters.container}`}
+                    className={`${styles.storycontainer} ${styles.background} ${styles.container}`}
                     style={{
                       backgroundImage: `url(${
                         story.slides &&
