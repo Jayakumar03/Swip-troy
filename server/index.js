@@ -3,14 +3,15 @@ const app = express();
 const mongoDB = require("./config/db");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-app.use(
-  cors({
-    origin: ["https://deploy-mern-1whq.vercel.app"],
-    methods: ["post", "get", "put", "delete"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://deploy-mern-1whq.vercel.app"],
+//     methods: ["post", "get", "put", "delete"],
+//     credentials: true,
+//   })
+// );
 
+app.use(cors());
 // ? Regular Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
