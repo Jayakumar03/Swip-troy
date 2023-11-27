@@ -20,8 +20,8 @@ const Bookmarkpage = () => {
   const { id } = useParams();
   const userId = id;
 
-  // const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/bookmarkedStories/${userId}`;
-  const backendUrl = `http://localhost:4000/api/v1/stories/bookmarkedStories/${userId}`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/bookmarkedStories/${userId}`;
+  // const backendUrl = `http://localhost:4000/api/v1/stories/bookmarkedStories/${userId}`;
 
   useEffect(() => {
     const fetch = async () => {
