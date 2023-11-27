@@ -3,7 +3,6 @@ const app = express();
 const mongoDB = require("./config/db");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-// This will allow all CORS requests
 app.use(cors());
 
 // ? Regular Middleware
@@ -33,7 +32,9 @@ app.use("/api/v1/stories/", stories)
 
 
 const port = process.env.PORT || 4000;
-app.listen(port, console.log("server is running at " + port, "..."));
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 // Health api
 app.get("/health", (req, res) => {

@@ -4,8 +4,7 @@
   "description": "Bacend of swip tory app",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "Node.js",
