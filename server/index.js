@@ -7,14 +7,16 @@ const cors = require("cors");
 app.use(cors());
 
 // preflight request
-// app.options("*", cors());
+app.options("*", cors());
 
 // Access-Control-Allow-Origin
+// origin: ["https://swip-troy-frontend.vercel.app"],
+
 app.use(
   cors({
-    origin: ["https://swip-troy-frontend.vercel.app"],
+    origin: "*",
     methods: ["post", "get", "put", "delete"],
-    credentials:true
+    credentials: true,
   })
 );
 
