@@ -7,7 +7,7 @@ const cors = require("cors");
 app.use(cors());
 
 // preflight request
-app.options("*", cors());
+// app.options("*", cors());
 
 // Access-Control-Allow-Origin
 app.use(
