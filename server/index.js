@@ -9,6 +9,13 @@ app.use(cors());
 // preflight request
 app.options("*", cors());
 
+// Access-Control-Allow-Origin
+app.use(
+  cors({
+    origin: "https://swip-troy-frontend.vercel.app",
+  })
+);
+
 // ? Regular Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
