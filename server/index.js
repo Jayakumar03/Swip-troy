@@ -40,3 +40,8 @@ app.get("/health", (req, res) => {
   res.status(200);
   console.log("Health is good");
 });
+
+
+app.get("/", (req, res) => {
+  res.status(200).send(<h1>Home</h1>)
+});
