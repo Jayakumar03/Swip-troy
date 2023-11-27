@@ -43,5 +43,5 @@ app.get("/health", (req, res) => {
 
 
 app.get("/", (req, res) => {
-  res.status(200).send(<h1>Home</h1>)
+  res.status(200).send("<h1>Home</h1>")
 });
