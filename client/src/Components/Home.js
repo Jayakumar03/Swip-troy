@@ -46,7 +46,9 @@ const Home = () => {
   });
 
   useEffect(() => {
-    const result = axios.get(backendUrl);
+    const result = axios.get(
+      "https://swip-troy-backend-93qf4xgmk-jayakumar03.vercel.app/stories/getallstories"
+    );
 
     result
       .then((res) => {
