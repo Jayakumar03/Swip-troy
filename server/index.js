@@ -12,7 +12,7 @@ app.options("*", cors());
 // Access-Control-Allow-Origin
 app.use(
   cors({
-    origin: "https://swip-troy-frontend.vercel.app",
+    origin: "https://swip-troy-frontend.vercel.app/",
   })
 );
 
