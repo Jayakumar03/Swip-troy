@@ -19,7 +19,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     },
   ]);
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/createstories`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/createstories`;
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...slides];
@@ -56,11 +56,11 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     setOpenAddStoriesModal(false);
   };
 
-  const handleCreateStories = () => {
+  const handleCreateStories = async () => {
     if (numberOfSlides.length < 3) {
       toast.error("Minimum three slides are required");
     } else {
-      const result = axios.post(backendUrl, {
+      const result = await axios.post(backendUrl, {
         bookmark: false,
         userId: userId,
         slides: slides,

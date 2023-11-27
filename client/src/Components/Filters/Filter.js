@@ -14,7 +14,7 @@ const Filter = ({ category }) => {
     initialVisibleIndiaImages
   );
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/filteredStories`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/filteredStories`;
 
   useEffect(() => {
     const fetchData = async () => {

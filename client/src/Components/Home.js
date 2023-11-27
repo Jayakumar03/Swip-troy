@@ -28,7 +28,7 @@ import YourStroy from "./YourStory/YourStory";
 
 const Home = () => {
   const navigate = useNavigate();
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/getallstories`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/getallstories`;
   const [registerComponent, setregisterComponent] = useState(false);
   const [signinComponent, setsigninComponent] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,19 +46,18 @@ const Home = () => {
   });
 
   useEffect(() => {
-    const result = axios.get(
-      "https://swip-troy-backend.vercel.app/stories/getallstories"
-    );
-
-    result
-      .then((res) => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(backendUrl);
         const data = res.data;
         console.log(data.stories);
         setStories(data.stories);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log(error);
-      });
+      }
+    };
+
+    fetchData();
 
     const tokenInLocalStorage = localStorage.getItem("token");
     const userIdInLocalStorage = localStorage.getItem("userId");

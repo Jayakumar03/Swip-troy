@@ -21,21 +21,23 @@ const Bookmarkpage = () => {
   const userId = id;
   console.log(id);
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/bookmarkedStories/${userId}`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/bookmarkedStories/${userId}`;
   console.log(backendUrl);
 
   useEffect(() => {
-    const result = axios.get(backendUrl);
+    const fetch = async () => {
+      const result = await axios.get(backendUrl);
 
-    result
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        setStories(data.bookmarkedStories);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      result
+        .then((res) => {
+          const data = res.data;
+          console.log(data);
+          setStories(data.bookmarkedStories);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
   }, []);
 
   const handleSeeMoreIndiaClick = () => {

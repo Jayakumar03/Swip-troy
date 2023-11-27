@@ -6,7 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const TopTrendingStories = ({ setOpenIndividualStoryModa}) => {
+const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
   const navigate = useNavigate();
   const initialVisibleIndiaImages = 4;
   const [stories, setStories] = useState();
@@ -14,20 +14,21 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa}) => {
     initialVisibleIndiaImages
   );
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/getallstories`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/getallstories`;
 
   useEffect(() => {
-    const result = axios.get(backendUrl);
-
-    result
-      .then((res) => {
-        const data = res.data;
-        console.log(data.stories);
-        setStories(data.stories);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const fetch = async () => {
+      const result = await axios.get(backendUrl);
+      result
+        .then((res) => {
+          const data = res.data;
+          console.log(data.stories);
+          setStories(data.stories);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
   }, []);
 
   const handleSeeMoreIndiaClick = () => {
@@ -49,7 +50,7 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa}) => {
         <h1>No stories are available</h1>
       ) : (
         <>
-          {stories && 
+          {stories &&
             stories.length > 0 &&
             stories.slice(0, visibleIndiaImages).map((story) => {
               return (

@@ -18,19 +18,20 @@ const YourStroy = ({ userId, isLoggedIn }) => {
 
   console.log(userId);
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/userstories/${userId}`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/userstories/${userId}`;
   useEffect(() => {
-    const fetch = () => {
-      const result = axios.get(backendUrl);
-
-      result
-        .then((res) => {
-          const data = res.data;
+    const fetch = async () => {
+      try {
+        const result = await axios.get(backendUrl);
+        const data = result.data;
+        if (data.success) {
           setStories(data.userStories);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
     };
 
     if (isLoggedIn && userId) fetch();

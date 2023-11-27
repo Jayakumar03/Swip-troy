@@ -6,6 +6,8 @@ import styles from "./logout.module.css";
 const Logout = () => {
   const navigate = useNavigate();
 
+  const backendurl = `https://swip-troy-backend.vercel.app/api/v1/logout`;
+
   const handleLogout = () => {
     Cookies.remove("token");
     localStorage.removeItem("token");

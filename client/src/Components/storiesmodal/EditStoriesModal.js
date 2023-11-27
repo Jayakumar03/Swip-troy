@@ -13,12 +13,11 @@ const EditStories = ({
   const [numberOfSlides, setNumberOfSlides] = useState([]);
   const [updateSlide, setUpdateSlides] = useState();
 
+  const backendUrlIndividualStory = `https://swip-troy-backend.vercel.app/api/v1/stories/${storyId}`;
 
-  const backendUrlIndividualStory = `${process.env.REACT_APP_BACKEND_URL}stories/${storyId}`;
+  const backendUrlEdit = `https://swip-troy-backend.vercel.app/api/v1/stories/editstory/${storyId}`;
 
-  const backendUrlEdit = `${process.env.REACT_APP_BACKEND_URL}stories/editstory/${storyId}`;
-
-  useEffect(() => {
+  useEffect(async () => {
     const fetch = async () => {
       const result = await axios
         .get(backendUrlIndividualStory)
@@ -35,7 +34,6 @@ const EditStories = ({
     };
     fetch();
   }, []);
-
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...updateSlide];
@@ -67,7 +65,7 @@ const EditStories = ({
     } else {
       toast.error("Maximium six updateSlide are allowed");
     }
-  };;
+  };
 
   const deleteSlide = () => {
     console.log(numberOfSlides.length);

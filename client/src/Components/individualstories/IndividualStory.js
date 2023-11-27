@@ -21,28 +21,30 @@ const IndividualStory = ({ handleSigninClick }) => {
 
   // const storyId = "656049db55cab47fd44d0008";
 
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}stories/${storyId}`;
-  const backendUrlEdit = `${process.env.REACT_APP_BACKEND_URL}stories/editstory/${storyId}`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/${storyId}`;
+  const backendUrlEdit = `https://swip-troy-backend.vercel.app/api/v1/stories/editstory/${storyId}`;
 
   useEffect(() => {
-    const result = axios.get(backendUrl);
-
-    result
-      .then((result) => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get(backendUrl);
         if (result.data.success) {
           setStory(result.data.story);
           console.log(story);
         } else {
           toast.error(result.data.message);
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching data: ", error);
-      });
+      }
+    };
+
+    fetchData();
 
     const userId = localStorage.getItem("userId");
     if (userId) setIsLoggedIn(true);
   }, []);
+
 
   const previousSlide = () => {
     setCurrentSlide((currentslide) => {
@@ -64,30 +66,26 @@ const IndividualStory = ({ handleSigninClick }) => {
     });
   };
 
-  const handleBookmark = () => {
+  const handleBookmark = async () => {
     if (!isLoggedIn) {
       setLoginComponent(true);
       toast.error("Login Plese !!");
     } else {
-      setStory((previousStory) => {
+      setStory(async (previousStory) => {
         const updatedStory = {
           ...previousStory,
           bookmark: story.bookmark ? false : true,
         };
 
-        console.log("clikced");
-        // make put call
-        axios
-          .put(backendUrlEdit, updatedStory)
-          .then((result) => {
-            if (result.data.success) {
-              console.log(updatedStory);
-            }
-          })
-          .catch(() => {
-            toast.error("error");
-          });
-
+        try {
+          const result = await axios.put(backendUrlEdit, updatedStory);
+          if (result.data.success) {
+            console.log(updatedStory);
+          }
+        } catch (error) {
+          toast.error("error");
+        }
+  
         return updatedStory;
       });
     }
@@ -97,11 +95,11 @@ const IndividualStory = ({ handleSigninClick }) => {
     navigate("/");
   };
 
-  const handleLike = () => {
+  const handleLike = async() => {
     if (!isLoggedIn) {
       toast.error("Login Plese !!");
     } else {
-      setStory((previousStory) => {
+      setStory(async (previousStory) => {
         const updatedSlides = previousStory.slides.map((slide, index) => {
           if (index === currentslide) {
             return { ...slide, like: slide.like + 1 };
@@ -109,19 +107,17 @@ const IndividualStory = ({ handleSigninClick }) => {
             return slide;
           }
         });
-
+  
         const updatedStory = { ...previousStory, slides: updatedSlides };
-        axios
-          .put(backendUrlEdit, updatedStory)
-          .then((result) => {
-            if (result.data.success) {
-              console.log(updatedStory);
-            }
-          })
-          .catch(() => {
-            toast.error("error");
-          });
-
+        try {
+          const result = await axios.put(backendUrlEdit, updatedStory);
+          if (result.data.success) {
+            console.log(updatedStory);
+          }
+        } catch (error) {
+          toast.error("error");
+        }
+  
         return updatedStory;
       });
     }

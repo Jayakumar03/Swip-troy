@@ -15,7 +15,7 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
   const navigate = useNavigate();
 
   // backend url
-  const backendUrl = `${process.env.REACT_APP_BACKEND_URL}register`;
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/register`;
   console.log(backendUrl);
 
   const [userName, setUserName] = useState("");
@@ -34,7 +34,7 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
     setShowPassword(!showPassword);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     console.log("Username:", userName);
@@ -43,6 +43,7 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
     const result = axios.post(backendUrl, {
       username: userName,
       password: password,
+      
     });
 
     result
