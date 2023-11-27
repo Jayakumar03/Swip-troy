@@ -67,7 +67,7 @@ exports.logOut = async (req, res, next) => {
     });
 
     res.status(200).json({
-      sucess: true,
+      success: true,
       message: "Logout Success",
     });
   } catch (error) {}

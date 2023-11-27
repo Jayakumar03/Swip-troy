@@ -18,16 +18,18 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
 
   useEffect(() => {
     const fetch = async () => {
-      const result = await axios.get(backendUrl);
-      result
-        .then((res) => {
-          const data = res.data;
+      try {
+        const result = await axios.get(backendUrl);
+        const data = result.data;
+        if (data.success) {
           console.log(data.stories);
           setStories(data.stories);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetch();
   }, []);
