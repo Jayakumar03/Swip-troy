@@ -19,8 +19,6 @@ const IndividualStory = ({ handleSigninClick }) => {
 
   const navigate = useNavigate();
 
-  // const storyId = "656049db55cab47fd44d0008";
-
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/${storyId}`;
   const backendUrlEdit = `https://swip-troy-backend.vercel.app/api/v1/stories/editstory/${storyId}`;
 
@@ -44,7 +42,6 @@ const IndividualStory = ({ handleSigninClick }) => {
     const userId = localStorage.getItem("userId");
     if (userId) setIsLoggedIn(true);
   }, []);
-
 
   const previousSlide = () => {
     setCurrentSlide((currentslide) => {
@@ -85,7 +82,7 @@ const IndividualStory = ({ handleSigninClick }) => {
         } catch (error) {
           toast.error("error");
         }
-  
+
         return updatedStory;
       });
     }
@@ -95,7 +92,7 @@ const IndividualStory = ({ handleSigninClick }) => {
     navigate("/");
   };
 
-  const handleLike = async() => {
+  const handleLike = async () => {
     if (!isLoggedIn) {
       toast.error("Login Plese !!");
     } else {
@@ -107,7 +104,7 @@ const IndividualStory = ({ handleSigninClick }) => {
             return slide;
           }
         });
-  
+
         const updatedStory = { ...previousStory, slides: updatedSlides };
         try {
           const result = await axios.put(backendUrlEdit, updatedStory);
@@ -117,7 +114,7 @@ const IndividualStory = ({ handleSigninClick }) => {
         } catch (error) {
           toast.error("error");
         }
-  
+
         return updatedStory;
       });
     }

@@ -60,24 +60,26 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     if (numberOfSlides.length < 3) {
       toast.error("Minimum three slides are required");
     } else {
-      const result = await axios.post(backendUrl, {
-        bookmark: false,
-        userId: userId,
-        slides: slides,
-      });
-
-      result
-        .then((res) => {
-          const data = res.data;
-          if (data.success) {
-            toast("Successfully created stories");
-            closeModal();
-          }
-        })
-        .catch((error) => {
-          console.log(error.message);
-          toast.error("Not Success registered");
+      try {
+        const result = await axios.post(backendUrl, {
+          bookmark: false,
+          userId: userId,
+          slides: slides,
         });
+
+        const data = result.data;
+
+        if (data.success) {
+          toast("Successfully created stories");
+          closeModal();
+        } else {
+          console.log(data.message);
+          toast.error("Not Success registered");
+        }
+      } 
+      catch (error) {
+        console.log(error);
+      }
     }
   };
 

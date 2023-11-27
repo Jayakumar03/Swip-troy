@@ -17,7 +17,7 @@ const EditStories = ({
 
   const backendUrlEdit = `https://swip-troy-backend.vercel.app/api/v1/stories/editstory/${storyId}`;
 
-  useEffect(async () => {
+  useEffect(() => {
     const fetch = async () => {
       const result = await axios
         .get(backendUrlIndividualStory)

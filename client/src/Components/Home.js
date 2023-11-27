@@ -10,10 +10,13 @@ import styles from "./bookmarkpage.module.css";
 import Bookmarkicon from "../Image/bookmark-icon.png";
 import Profilepic from "../Image/profilepic.svg";
 import Hamburgericon from "../Image/Ham.svg";
-import filterimg1 from "../Image/fillimg1.png";
-import filterimg2 from "../Image/fillimg2.jpg";
-import filterimg3 from "../Image/fillimg3.jpg";
-import filterimg4 from "../Image/fillimg4.png";
+import all from "../Image/image 466.png";
+import food from "../Image/fillimg3.jpg";
+import travel from "../Image/fillimg2.jpg";
+import health from "../Image/medicine.jpg";
+import movies from "../Image/movie.jpg";
+import education from "../Image/fillimg4.png";
+
 import Register from "./auth/Register";
 import SignIn from "./auth/Signin";
 import Logout from "./auth/Logout";
@@ -203,7 +206,7 @@ const Home = () => {
           className="fillter-button-container"
           onClick={handleFoodButtonClick}
         >
-          <img src={filterimg1} alt="" className="filter-images" />
+          <img src={all} alt="" className="filter-images" />
           <h3 className="filter-names">All</h3>
         </button>
 
@@ -211,7 +214,7 @@ const Home = () => {
           className="fillter-button-container"
           onClick={handleFoodButtonClick}
         >
-          <img src={filterimg1} alt="" className="filter-images" />
+          <img src={food} alt="" className="filter-images" />
           <h3 className="filter-names">Food</h3>
         </button>
 
@@ -219,7 +222,7 @@ const Home = () => {
           className="fillter-button-container"
           onClick={handleTravelButtonClick}
         >
-          <img src={filterimg2} alt="" className="filter-images" />
+          <img src={travel} alt="" className="filter-images" />
           <h3 className="filter-names">Travel</h3>
         </button>
 
@@ -227,7 +230,7 @@ const Home = () => {
           className="fillter-button-container"
           onClick={handleHealthButtonClick}
         >
-          <img src={filterimg3} alt="" className="filter-images" />
+          <img src={health} alt="" className="filter-images" />
           <h3 className="filter-names">Health</h3>
         </button>
 
@@ -235,7 +238,7 @@ const Home = () => {
           className="fillter-button-container"
           onClick={handleMoviesButtonClick}
         >
-          <img src={filterimg4} alt="" className="filter-images" />
+          <img src={movies} alt="" className="filter-images" />
           <h3 className="filter-names">Movies</h3>
         </button>
 
@@ -243,7 +246,7 @@ const Home = () => {
           className="fillter-button-container"
           onClick={handleEducationButtonClick}
         >
-          <img src={filterimg1} alt="" className="filter-images" />
+          <img src={education} alt="" className="filter-images" />
           <h3 className="filter-names">Education</h3>
         </button>
       </div>

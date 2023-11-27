@@ -19,9 +19,12 @@ const YourStroy = ({ userId, isLoggedIn }) => {
   console.log(userId);
 
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/userstories/${userId}`;
+
   useEffect(() => {
+    console.log("hi at useEffect");
     const fetch = async () => {
       try {
+        console.log("hi at fetch");
         const result = await axios.get(backendUrl);
         const data = result.data;
         if (data.success) {
@@ -34,7 +37,7 @@ const YourStroy = ({ userId, isLoggedIn }) => {
       }
     };
 
-    if (isLoggedIn && userId) fetch();
+    if (isLoggedIn && userId) setTimeout(() => fetch(), 4000);
   }, [isLoggedIn, userId]);
 
   const handleSeeMoreIndiaClick = () => {
