@@ -36,34 +36,32 @@ const SignIn = ({
     setShowPassword(!showPassword);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     console.log("Username:", userName);
     console.log("Password:", password);
 
-    const result = axios.post(backendUrl, {
-      username: userName,
-      password: password,
-    });
-
-    result
-      .then((res) => {
-        const data = res.data;
-        if (data.success) {
-          setIsLoggedIn(true);
-          Cookies.set("token", data.token);
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("userId", data.user._id);
-          onClose();
-          setUserDetails(data.user);
-          toast("Enjoy the stories!");
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-        toast.error("Wrong password!");
+    try {
+      const res = await axios.post(backendUrl, {
+        username: userName,
+        password: password,
       });
+
+      const data = res.data;
+      if (data.success) {
+        setIsLoggedIn(true);
+        Cookies.set("token", data.token);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.user._id);
+        onClose();
+        setUserDetails(data.user);
+        toast("Enjoy the stories!");
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast.error("Wrong password!");
+    }
 
     setUsername("");
     setPassword("");
