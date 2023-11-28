@@ -2,6 +2,8 @@ import styles from "./bookmarkpage.module.css";
 import Bookmarkicon from "../Image/bookmark-icon.png";
 import Profilepic from "../Image/profilepic.svg";
 import Hamburgericon from "../Image/Ham.svg";
+import AddStories from "./storiesmodal/AddStoriesModal";
+import Logout from "./auth/Logout";
 
 import React, { useEffect, useState } from "react";
 import filters from "./Filters/filters.module.css";
@@ -16,12 +18,14 @@ const Bookmarkpage = () => {
   const [visibleIndiaImages, setVisibleIndiaImages] = useState(
     initialVisibleIndiaImages
   );
+  const [openAddStoriesModal, setOpenAddStoriesModal] = useState(false);
+  const [openLogoutModal, setOpenLogoutModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { id } = useParams();
   const userId = id;
 
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/bookmarkedStories/${userId}`;
-  // const backendUrl = `http://localhost:4000/api/v1/stories/bookmarkedStories/${userId}`;
 
   useEffect(() => {
     const fetch = async () => {
@@ -43,32 +47,71 @@ const Bookmarkpage = () => {
     setVisibleIndiaImages(visibleIndiaImages + 4);
   };
 
+  const openModalHandler = () => {
+    setOpenAddStoriesModal(openAddStoriesModal ? false : true);
+  };
+
+  const handleHamButtonClick = () => {
+    setOpenLogoutModal(true);
+    setIsLoggedIn(false);
+    setStories([]);
+    navigate("/bookmark/null");
+  };
+
+  const handleHomePageNavigate = () => {
+    navigate("/");
+  };
+
+  const individualStoryPage = (e) => {
+    const storyId = e.target.getAttribute("id");
+    console.log(e.target.getAttribute("id"));
+    navigate(`/individualstory/${storyId}`);
+  };
+
   return (
     <div className={styles.bookmarkHeader}>
+      {isLoggedIn ? (
+        <>
+          <button className={styles.addStoryBtn} onClick={openModalHandler}>
+            Add story
+          </button>
+          <img
+            className={styles.bookmarkProfilePic}
+            src={Profilepic}
+            alt=""
+            style={{ width: "40px", height: "40px" }}
+          />
+          <button className={styles.hamBtn} onClick={handleHamButtonClick}>
+            <img
+              src={Hamburgericon}
+              alt=""
+              style={{ width: "18px", height: "18px" }}
+            />
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            className={styles.addStoryBtn}
+            onClick={handleHomePageNavigate}
+          >
+            Home page
+          </button>
+        </>
+      )}
       <h3 className={styles.bookmarkSwip}>SwipTory</h3>
-      <button className={styles.bookmarkBtn}>
-        <img className={styles.bookMarkIcon} src={Bookmarkicon} alt="" />{" "}
-        Bookmark
-      </button>
-      <button className={styles.addStoryBtn}>Add story</button>
-      <img
-        className={styles.bookmarkProfilePic}
-        src={Profilepic}
-        alt=""
-        style={{ width: "40px", height: "40px" }}
-      />
-      <button className={styles.hamBtn}>
-        <img
-          src={Hamburgericon}
-          alt=""
-          style={{ width: "18px", height: "18px" }}
-        />
-      </button>
 
       <>
+        {openLogoutModal ? <Logout parent={"bookmark"} /> : null}
+        {openAddStoriesModal && (
+          <AddStories
+            setOpenAddStoriesModal={setOpenAddStoriesModal}
+            userId={userId}
+          />
+        )}
         <h1 className={styles.yourStoryHeading}>Your Bookmarks</h1>
         {stories && stories.length === 0 ? (
-          <h1>No stories are available</h1>
+          <h1 className={styles.noMorestories}>No stories are available</h1>
         ) : (
           <>
             {stories &&
@@ -76,6 +119,9 @@ const Bookmarkpage = () => {
               stories.slice(0, visibleIndiaImages).map((story) => {
                 return (
                   <div
+                    key={story._id}
+                    id={story._id}
+                    onClick={individualStoryPage}
                     className={`${styles.storycontainer} ${styles.background} ${styles.container}`}
                     style={{
                       backgroundImage: `url(${
@@ -86,7 +132,11 @@ const Bookmarkpage = () => {
                       })`,
                     }}
                   >
-                    <div className={filters.wrappered}>
+                    <div
+                      id={story._id}
+                      className={filters.wrappered}
+                      onClick={individualStoryPage}
+                    >
                       <h3 className={filters.heading}>
                         {story.slides &&
                           story.slides[0] &&
@@ -112,6 +162,19 @@ const Bookmarkpage = () => {
             )}
           </>
         )}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <ToastContainer />
       </>
     </div>
   );

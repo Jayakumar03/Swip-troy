@@ -169,7 +169,7 @@ const Home = () => {
                 style={{ width: "18px", height: "18px" }}
               />
             </button>
-            {openLogoutModal ? <Logout /> : null}
+            {openLogoutModal ? <Logout parent={"home"} /> : null}
           </div>
         ) : (
           <div>

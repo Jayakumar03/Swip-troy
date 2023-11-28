@@ -135,6 +135,14 @@
   height: 100%;
 }
 
+.noMorestories{
+  position: relative;
+  color: grey;
+  top:10px;
+  left: 42.5;
+  margin:0 auto;
+}
+
 @media only screen and (max-width: 600px) {
   .bookmarkHeader {
     position: absolute;

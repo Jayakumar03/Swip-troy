@@ -218,6 +218,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
                 }
               }}
             >
+              <option value="food" disabled>Select one option</option>
               <option value="food ">food </option>
               <option value="health and fitness">health</option>
               <option value="travel">travel</option>
