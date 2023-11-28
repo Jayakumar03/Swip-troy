@@ -1,15 +1,16 @@
+import Filter from "./Filter";
+import filters from "./filters.module.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import filters from "../Filters/filters.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import IndividualStory from "../individualstories/IndividualStory";
 
-const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
+const All = ({ setOpenIndividualStoryModal, openIndividualStoryModal }) => {
   const navigate = useNavigate();
   const initialVisibleIndiaImages = 4;
-  const [stories, setStories] = useState();
+  const [stories, setStories] = useState([]);
   const [visibleIndiaImages, setVisibleIndiaImages] = useState(
     initialVisibleIndiaImages
   );
@@ -17,22 +18,20 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/getallstories`;
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       try {
         const result = await axios.get(backendUrl);
-        const data = result.data;
-        console.log(data.stories)
-        if (data.success) {
-          setStories(data.stories);
-          console.log(stories)
+        if (result.data.success) {
+          setStories(result.data.stories);
         } else {
-          toast.error(data.message);
+          toast.error("error in filters");
         }
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching data: ", error);
       }
     };
-    fetch();
+
+    fetchData();
   }, []);
 
   const handleSeeMoreIndiaClick = () => {
@@ -47,11 +46,10 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
 
   return (
     <>
-      <h1 className={filters.yourStoryHeading}>
-        Top trending stories of the day
-      </h1>
       {stories && stories.length === 0 ? (
-        <h1>No stories are available</h1>
+        <h3 className={filters.NoMoreStories}>
+          No stories are available for this filter
+        </h3>
       ) : (
         <>
           {stories &&
@@ -59,7 +57,6 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
             stories.slice(0, visibleIndiaImages).map((story) => {
               return (
                 <div
-                  id={story._id}
                   onClick={individualStoryPage}
                   className={`${filters.storycontainer} ${filters.background} ${filters.container}`}
                   style={{
@@ -70,7 +67,9 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
                       story.slides[0].image.url
                     })`,
                   }}
+                  id={story._id}
                 >
+                  {console.log(story._id)}
                   <div className={filters.wrappered}>
                     <h3 className={filters.heading}>
                       {story.slides &&
@@ -101,4 +100,4 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
   );
 };
 
-export default TopTrendingStories;
+export default All;

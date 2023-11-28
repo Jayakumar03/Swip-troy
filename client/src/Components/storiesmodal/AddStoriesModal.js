@@ -31,7 +31,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     setSlides(newSlides);
     console.log(newSlides);
   };
-  // Add axios post request with bookmark and userDetails._id
+ 
 
   const AddSlide = ({ setOpenAddStoriesModal }) => {
     console.log(numberOfSlides.length);
@@ -57,7 +57,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   };
 
   const handleCreateStories = async () => {
-    if (numberOfSlides.length < 3) {
+    if (numberOfSlides.length < 3 && slides.length > 3) {
       toast.error("Minimum three slides are required");
     } else {
       try {
@@ -79,6 +79,8 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
       } 
       catch (error) {
         console.log(error);
+        toast.info("Please all the input fileds are required");
+
       }
     }
   };
@@ -218,7 +220,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
                 }
               }}
             >
-              <option value="food" disabled>Select one option</option>
+              {/* <option value="food ">food </option> */}
               <option value="food ">food </option>
               <option value="health and fitness">health</option>
               <option value="travel">travel</option>

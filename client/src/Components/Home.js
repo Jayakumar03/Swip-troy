@@ -20,6 +20,7 @@ import education from "../Image/fillimg4.png";
 import Register from "./auth/Register";
 import SignIn from "./auth/Signin";
 import Logout from "./auth/Logout";
+import All from "./Filters/All";
 import Travel from "./Filters/Travel";
 import Food from "./Filters/Food";
 import Health from "./Filters/Health";
@@ -41,6 +42,7 @@ const Home = () => {
   const [openAddStoriesModal, setOpenAddStoriesModal] = useState(false);
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
   const [showFilter, setShowFilter] = useState({
+    all: false,
     travel: false,
     food: false,
     health: false,
@@ -76,6 +78,13 @@ const Home = () => {
     setShowFilter((prevState) => ({
       ...prevState,
       food: prevState.food ? false : true,
+    }));
+  };
+
+  const handleaAllButtonClick = () => {
+    setShowFilter((prevState) => ({
+      ...prevState,
+      all: prevState.all ? false : true,
     }));
   };
 
@@ -201,7 +210,7 @@ const Home = () => {
       <div className="filter-container">
         <button
           className="fillter-button-container"
-          onClick={handleFoodButtonClick}
+          onClick={handleaAllButtonClick}
         >
           <img src={all} alt="" className="filter-images" />
           <h3 className="filter-names">All</h3>
@@ -253,6 +262,12 @@ const Home = () => {
       ) : null}
 
       {/* filters */}
+
+      {showFilter.all && (
+        <p className="filter-heading">Top Stories About All</p>
+      )}
+      {showFilter.all && <All  />}
+
       {showFilter.travel && (
         <p className="filter-heading">Top Stories About travel</p>
       )}
