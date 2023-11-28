@@ -52,7 +52,7 @@
   height: 5px;
   background-color: grey;
   border-radius: 2.5px;
-  background: white;
+  background: rgb(105, 101, 101);
 }
 
 .dark {
