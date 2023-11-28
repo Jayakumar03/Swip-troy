@@ -7,17 +7,17 @@ const stories = new mongoose.Schema({
     default: false,
   },
 
-  userId: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: true,
-  },
-
-  // userId: [{
+  // userId: {
   //   type: mongoose.Schema.ObjectId,
   //   ref: "User",
   //   required: true,
-  // }]
+  // },
+
+  userId: [{
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  }],
 
   slides: [
     {
