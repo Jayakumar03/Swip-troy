@@ -24,21 +24,21 @@ const YourStroy = ({ userId, isLoggedIn }) => {
     console.log("hi at useEffect");
     const fetch = async () => {
       try {
-        console.log("hi at fetch");
         const result = await axios.get(backendUrl);
         const data = result.data;
         if (data.success) {
           setStories(data.userStories);
         } else {
-          toast.error(data.message);
+          toast.error("No more stories are avaible");
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
+        toast.error("Your haven't created any stories!!, click on add stories");
       }
     };
 
     if (isLoggedIn && userId) setTimeout(() => fetch(), 3000);
-  }, [isLoggedIn, userId,stories]);
+  }, [isLoggedIn, userId, stories]);
 
   const handleSeeMoreIndiaClick = () => {
     setVisibleIndiaImages(visibleIndiaImages + 4);
@@ -60,7 +60,9 @@ const YourStroy = ({ userId, isLoggedIn }) => {
     <>
       <h1 className={filters.yourStoryHeading}>Your stories </h1>
       {stories && stories.length === 0 ? (
-        <h1>No stories are available</h1>
+        <h1 className={filters.NoMoreStories}>
+          No more stories are available for this filter
+        </h1>
       ) : (
         <>
           {stories &&
@@ -121,6 +123,20 @@ const YourStroy = ({ userId, isLoggedIn }) => {
           )}
         </>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </>
   );
 };
