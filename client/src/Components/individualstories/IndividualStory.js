@@ -6,12 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams, useNavigate } from "react-router-dom";
 
-//! need state form home.js   storyId, isLoggedIn, setLoginComponent,setOpenIndividualStoryModal,
 const IndividualStory = ({ handleSigninClick }) => {
   const [story, setStory] = useState();
   const [currentslide, setCurrentSlide] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginComponent, setLoginComponent] = useState(false);
+  const [userId, setUserId] = useState();
 
   const { id } = useParams();
   const storyId = id;
@@ -38,8 +38,12 @@ const IndividualStory = ({ handleSigninClick }) => {
 
     fetchData();
 
-    const userId = localStorage.getItem("userId");
-    if (userId) setIsLoggedIn(true);
+    let userId = localStorage.getItem("userId");
+    if (userId) {
+      setIsLoggedIn(true);
+      userId = Number(userId);
+      setUserId(userId);
+    }
   }, []);
 
   const previousSlide = () => {
@@ -110,6 +114,44 @@ const IndividualStory = ({ handleSigninClick }) => {
       }
     }
   };
+
+  // const handleBookmark = async () => {
+  //   if (!isLoggedIn) {
+  //     setLoginComponent(true);
+  //     toast.error("Login Plese !!");
+  //   } else {
+  //     const previousStory = story;
+  //     console.log(previousStory);
+  //     let updatedStory;
+  //     if (story.bookmark) {
+  //       updatedStory = {
+  //         ...previousStory,
+  //         bookmark: false,
+  //         userId: previousStory.userId.filter((id) => id !== userId),
+  //       };
+  //     } else {
+  //       updatedStory = {
+  //         ...previousStory,
+  //         bookmark: true,
+  //         userId: previousStory.userId.includes(userId)
+  //           ? previousStory.userId
+  //           : [...previousStory.userId, userId],
+  //       };
+  //     }
+
+  //     console.log(updatedStory);
+
+  //     try {
+  //       const result = await axios.put(backendUrlEdit, updatedStory);
+  //       if (result.data.success) {
+  //         console.log(updatedStory, "updated at api");
+  //         setStory(updatedStory);
+  //       }
+  //     } catch (error) {
+  //       toast.error("error");
+  //     }
+  //   }
+  // };
 
   const closeModal = () => {
     navigate("/");

@@ -66,7 +66,6 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails, setUserId }) => {
 
     setUserName("");
     setPassword("");
-    window.location.reload();
   };
 
   const handleClose = () => {

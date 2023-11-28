@@ -43,6 +43,8 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
     navigate(`/individualstory/${storyId}`);
   };
 
+  
+
   return (
     <>
       <h1 className={filters.yourStoryHeading}>

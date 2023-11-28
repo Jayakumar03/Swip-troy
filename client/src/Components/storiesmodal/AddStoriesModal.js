@@ -20,6 +20,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   ]);
 
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/createstories`;
+  // const localHost = `http://localhost:4000/api/v1/stories/createstories`;
 
   const handleSlideChange = (index, field, value) => {
     const newSlides = [...slides];
@@ -31,7 +32,6 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     setSlides(newSlides);
     console.log(newSlides);
   };
- 
 
   const AddSlide = ({ setOpenAddStoriesModal }) => {
     console.log(numberOfSlides.length);
@@ -57,7 +57,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   };
 
   const handleCreateStories = async () => {
-    if (numberOfSlides.length < 3 && slides.length > 3) {
+    if (numberOfSlides.length < 3) {
       toast.error("Minimum three slides are required");
     } else {
       try {
@@ -76,11 +76,9 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
           console.log(data.message);
           toast.error("Not Success registered");
         }
-      } 
-      catch (error) {
+      } catch (error) {
         console.log(error);
         toast.info("Please all the input fileds are required");
-
       }
     }
   };
