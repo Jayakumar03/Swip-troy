@@ -17,14 +17,13 @@ const SignIn = ({
   setUserDetails,
   setLoginComponent,
   parent,
+  setUserId,
 }) => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/login`;
-
-
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -56,6 +55,7 @@ const SignIn = ({
       const data = res.data;
       if (data.success) {
         setIsLoggedIn(true);
+        setUserId(data.user._id);
         Cookies.set("token", data.token);
         localStorage.setItem("token", data.token);
         localStorage.setItem("userId", data.user._id);

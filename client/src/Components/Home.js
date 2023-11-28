@@ -55,7 +55,6 @@ const Home = () => {
       try {
         const res = await axios.get(backendUrl);
         const data = res.data;
-        console.log(data.stories);
         setStories(data.stories);
       } catch (error) {
         console.log(error);
@@ -73,6 +72,10 @@ const Home = () => {
       setUserId(userIdInLocalStorage);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(userId);
+  }, [userId]);
 
   const handleFoodButtonClick = () => {
     setShowFilter((prevState) => ({
@@ -190,6 +193,7 @@ const Home = () => {
                 onClose={handleCloseRegister}
                 setIsLoggedIn={setIsLoggedIn}
                 setUserDetails={setUserDetails}
+                setUserId={setUserId}
               />
             )}
             <button className="signin-btn" onClick={handleSigninClick}>
@@ -201,6 +205,7 @@ const Home = () => {
                 setIsLoggedIn={setIsLoggedIn}
                 setUserDetails={setUserDetails}
                 parent="home"
+                setUserId={setUserId}
               />
             )}
           </div>
@@ -257,6 +262,7 @@ const Home = () => {
         </button>
       </div>
 
+      {console.log(userId)}
       {isLoggedIn ? (
         <YourStroy userId={userId} isLoggedIn={isLoggedIn} />
       ) : null}
@@ -266,7 +272,7 @@ const Home = () => {
       {showFilter.all && (
         <p className="filter-heading">Top Stories About All</p>
       )}
-      {showFilter.all && <All  />}
+      {showFilter.all && <All />}
 
       {showFilter.travel && (
         <p className="filter-heading">Top Stories About travel</p>

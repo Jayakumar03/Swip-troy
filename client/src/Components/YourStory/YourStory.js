@@ -16,12 +16,8 @@ const YourStroy = ({ userId, isLoggedIn }) => {
   const [openEditStoriesModal, setOpenEditStoriesModal] = useState(false);
   const [storyId, setStoryId] = useState(null);
 
-  console.log(userId);
-
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/userstories/${userId}`;
-
   useEffect(() => {
-    console.log("hi at useEffect");
     const fetch = async () => {
       try {
         const result = await axios.get(backendUrl);
@@ -33,11 +29,10 @@ const YourStroy = ({ userId, isLoggedIn }) => {
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
-        toast.error("Your haven't created any stories!!, click on add stories");
       }
     };
 
-    if (isLoggedIn && userId) setTimeout(() => fetch(), 5000);
+    fetch();
   }, [isLoggedIn, userId, stories]);
 
   const handleSeeMoreIndiaClick = () => {

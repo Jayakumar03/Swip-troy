@@ -21,10 +21,8 @@ const TopTrendingStories = ({ setOpenIndividualStoryModa }) => {
       try {
         const result = await axios.get(backendUrl);
         const data = result.data;
-        console.log(data.stories)
         if (data.success) {
           setStories(data.stories);
-          console.log(stories)
         } else {
           toast.error(data.message);
         }

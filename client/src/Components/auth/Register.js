@@ -11,7 +11,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
 
-const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
+const Register = ({ onClose, setIsLoggedIn, setUserDetails, setUserId }) => {
   const navigate = useNavigate();
 
   // backend url
@@ -43,7 +43,6 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
     const result = axios.post(backendUrl, {
       username: userName,
       password: password,
-      
     });
 
     result
@@ -51,6 +50,7 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails }) => {
         const data = res.data;
         if (data.success) {
           setIsLoggedIn(true);
+          setUserId(data.user._id);
           Cookies.set("token", data.token);
           localStorage.setItem("token", data.token);
           localStorage.setItem("userId", data.user._id);
