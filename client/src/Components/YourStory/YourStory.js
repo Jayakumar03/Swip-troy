@@ -37,8 +37,8 @@ const YourStroy = ({ userId, isLoggedIn }) => {
       }
     };
 
-    if (isLoggedIn && userId) setTimeout(() => fetch(), 4000);
-  }, [isLoggedIn, userId]);
+    if (isLoggedIn && userId) setTimeout(() => fetch(), 3000);
+  }, [isLoggedIn, userId,stories]);
 
   const handleSeeMoreIndiaClick = () => {
     setVisibleIndiaImages(visibleIndiaImages + 4);

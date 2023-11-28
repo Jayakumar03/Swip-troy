@@ -52,15 +52,41 @@ const IndividualStory = ({ handleSigninClick }) => {
     });
   };
 
+  // const nextSlide = () => {
+  //   setCurrentSlide((currentslide) => {
+  //     if (story && story.slides && currentslide < story.slides.length - 1) {
+  //       return currentslide + 1;
+  //     } else {
+  //       toast.error("No more slides available");
+  //     }
+  //     console.log(currentslide);
+  //     return currentslide;
+  //   });
+  // };
+
   const nextSlide = () => {
     setCurrentSlide((currentslide) => {
       if (story && story.slides && currentslide < story.slides.length - 1) {
         return currentslide + 1;
+      } else {
+        toast.error("No more slides available");
       }
       console.log(currentslide);
       return currentslide;
     });
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (story && story.slides && currentslide < story.slides.length - 1) {
+        nextSlide();
+      } else {
+        clearInterval(timer);
+      }
+    }, 10000);
+
+    return () => clearInterval(timer);
+  }, [story, currentslide]);
 
   const handleBookmark = async () => {
     if (!isLoggedIn) {
@@ -96,7 +122,22 @@ const IndividualStory = ({ handleSigninClick }) => {
       setStory((previousStory) => {
         const updatedSlides = previousStory.slides.map((slide, index) => {
           if (index === currentslide) {
-            return { ...slide, like: slide.like + 1 };
+            if (slide.liked) {
+              toast.error("Unliked!!");
+              return { ...slide, like: slide.like - 1, liked: false };
+            } else {
+              toast.success("🦄 Wow!", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+              return { ...slide, like: slide.like + 1, liked: true };
+            }
           } else {
             return slide;
           }
@@ -111,7 +152,7 @@ const IndividualStory = ({ handleSigninClick }) => {
           } else {
             toast.error("error");
           }
-        } catch(error) {
+        } catch (error) {
           console.log(error);
         }
 
@@ -129,12 +170,30 @@ const IndividualStory = ({ handleSigninClick }) => {
             backgroundImage: `url(${story.slides[currentslide].image.url})`,
           }}
         >
+          {/* <div className={styles.slideContainer}>
+            {story.slides.map((slide, index) =>
+              index < currentslide ? (
+                <span
+                  key={index}
+                  className={`${styles.slide} ${styles.dark}`}
+                ></span>
+              ) : (
+                <span key={index} className={styles.slide}></span>
+              )
+            )}
+          </div> */}
+
           <div className={styles.slideContainer}>
             {story.slides.map((slide, index) =>
               index < currentslide ? (
                 <span
                   key={index}
                   className={`${styles.slide} ${styles.dark}`}
+                ></span>
+              ) : index === currentslide ? (
+                <span
+                  key={index}
+                  className={`${styles.slide} ${styles.dark} ${styles.animated}`}
                 ></span>
               ) : (
                 <span key={index} className={styles.slide}></span>
@@ -219,7 +278,18 @@ const IndividualStory = ({ handleSigninClick }) => {
         </div>
       )}
 
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

@@ -6,6 +6,7 @@ const stories = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  
   userId: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
