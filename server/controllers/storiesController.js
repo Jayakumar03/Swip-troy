@@ -93,7 +93,7 @@ exports.bookmarkedStories = async (req, res, next) => {
     console.log("User ID:", userId); // Add this line
 
     const bookmarkedStories = await Stories.find({
-      userId: userId,
+      userId: { $in: [userId] },
       bookmark: true,
     });
 
@@ -115,6 +115,7 @@ exports.bookmarkedStories = async (req, res, next) => {
     res.status(500).json({ error: "An error occurred" });
   }
 };
+
 exports.filteredStories = async (req, res, next) => {
   try {
     const { category } = req.body;
