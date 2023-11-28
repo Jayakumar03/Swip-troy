@@ -14,7 +14,7 @@
 }
 
 .storycontainer {
-  width: 18%;
+  width: 20%;
   height: 300px;
   z-index: 0;
   position: relative;
@@ -176,37 +176,7 @@
     margin: 0 auto;
     text-align: center;
     position: relative;
-    top: 10%;
+    top: 20%;
     font-weight: 800;
   }
-
-  .NoMoreStories {
-    position: relative;
-    top: 0;
-    text-align: center;
-    margin: 0 auto;
-    color: grey;
-    margin-top: 10px;
-    margin-bottom: 10%;
-  }
-
-  /* .seeMoreBtn {
-    position: relative;
-    top: 5px;
-    left: 42.5%;
-    margin: 0 auto;
-    width: 10%;
-    top: 2px;
-    height: 40px;
-    border-radius: 10px;
-    background-color: #ff7373;
-    color: #ffffff;
-    border: none;
-    font-family: DM Sans;
-    font-size: 1rem;
-    font-weight: 700;
-    text-align: center;
-    cursor: pointer;
-    padding: 10px;
-  } */
 }
