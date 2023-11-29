@@ -46,7 +46,6 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     console.log(numberOfSlides.length);
     if (numberOfSlides.length > 3) {
       setNumberOfSlides((prevSlides) => prevSlides.slice(0, -1));
-      setSlides((prevSlides) => prevSlides.slice(0, -1));
     } else {
       toast.error("Minimum three slides are required");
     }
@@ -79,7 +78,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
         }
       } catch (error) {
         console.log(error);
-        toast.info("Errro while posting the stories");
+        toast.info("Please all the input fileds are required");
       }
     }
   };
@@ -219,7 +218,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
                 }
               }}
             >
-              <option value="food ">food </option>
+              {/* <option value="food ">food </option> */}
               <option value="food ">food </option>
               <option value="health and fitness">health</option>
               <option value="travel">travel</option>
