@@ -58,8 +58,8 @@ const YourStroy = ({ userId, isLoggedIn }) => {
 
   const HandleEditModal = (e) => {
     e.stopPropagation();
-    setOpenEditStoriesModal(true);
     setStoryId(e.target.getAttribute("id"));
+    setOpenEditStoriesModal(true);
   };
 
   const individualStoryPage = (e) => {
