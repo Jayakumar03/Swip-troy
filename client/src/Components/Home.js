@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AddStories from "./storiesmodal/AddStoriesModal";
-import EditStories from "./storiesmodal/AddStoriesModal";
-import IndividualStory from "./individualstories/IndividualStory";
+import axios from "axios";
 
 import "./home.css";
-import axios from "axios";
 import styles from "./bookmarkpage.module.css";
 import Bookmarkicon from "../Image/bookmark-icon.png";
 import Profilepic from "../Image/profilepic.svg";
@@ -17,6 +14,7 @@ import health from "../Image/medicine.jpg";
 import movies from "../Image/movie.jpg";
 import education from "../Image/fillimg4.png";
 
+import AddStories from "./storiesmodal/AddStoriesModal";
 import Register from "./auth/Register";
 import SignIn from "./auth/Signin";
 import Logout from "./auth/Logout";

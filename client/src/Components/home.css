@@ -91,13 +91,16 @@
   border: none;
   cursor: pointer;
   background-color: none;
-  transition: all 1s ease-in-out;
+  transition: scale 1s ease-in-out;
 }
 
 .fillter-button-container:hover {
   scale: 1.1;
 }
 
+.fillter-button-container:active {
+  background-color: #ff7373;
+}
 .filter-images {
   width: 100%;
   height: 25vh;
