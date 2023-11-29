@@ -6,7 +6,7 @@ import axios from "axios";
 
 const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [numberOfSlides, setNumberOfSlides] = useState([]);
+  // const [numberOfSlides, setNumberOfSlides] = useState([]);
   const [slides, setSlides] = useState([
     {
       heading: "",
@@ -91,7 +91,9 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     console.log(slides.length);
     if (slides.length > 3) {
       setSlides((prevSlides) => prevSlides.slice(0, -1));
-      setCurrentSlide(currentSlide - 1);
+      if (currentSlide === slides.length - 1) {
+        setCurrentSlide(currentSlide - 1);
+      }
     } else {
       toast.error("Minimum three slides are required");
     }
@@ -179,7 +181,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
             );
           })}
 
-          {numberOfSlides > 5 ? null : (
+          {slides > 5 ? null : (
             <button onClick={AddSlide} className={addStoriesStyle.addBtn}>
               Add +
             </button>
