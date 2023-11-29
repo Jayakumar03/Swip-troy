@@ -57,10 +57,10 @@
 
 .filter-container {
   display: flex;
-  justify-content: space-around;
-  width: 90%;
+  gap: 2%;
+  justify-content: space-evenly;
+  width: 80%;
   height: 20vh;
-  /* border: 1px solid red; */
   position: relative;
   margin: 0 auto;
   top: 20px;
@@ -70,7 +70,7 @@
 
 .fillter-button-container {
   border-radius: 20px;
-  width: 250px;
+  width: 30%;
   height: 25vh;
   border: none;
   cursor: pointer;
@@ -78,7 +78,7 @@
 }
 
 .filter-images {
-  width: 250px;
+  width: 100%;
   height: 25vh;
   border-radius: 20px;
 }
@@ -203,7 +203,7 @@
     width: 20%;
     height: 40px;
     top: 55%;
-    left:70%;
+    left: 70%;
     border-radius: 20px;
     background-color: #ff7373;
     color: #ffffff;

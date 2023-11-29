@@ -145,9 +145,10 @@ const Home = () => {
   };
 
   const handleHamButtonClick = () => {
-    setOpenLogoutModal(true);
+    setOpenLogoutModal((prevState) => !prevState);
   };
 
+  
   return (
     <div className="header">
       <div className="navbar">

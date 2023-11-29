@@ -3,7 +3,7 @@
   width: 10%;
   height: 20%;
   top: 18%;
-  left: 95%;
+  left: 92%;
   transform: translate(-50%, -50%);
   z-index: 2;
   background-color: #ffffff;
@@ -41,4 +41,20 @@
   letter-spacing: 0em;
   white-space: nowrap;
   color: black;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .logoutContainer {
+    position: fixed;
+    width: 50%;
+    height: 20%;
+    top: 18%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: #ffffff;
+    border: 1px solid red;
+  }
+
 }

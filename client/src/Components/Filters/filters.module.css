@@ -72,9 +72,9 @@
 
 .seeMoreBtn {
   position: relative;
-  top: 5px;
-  left: 42.5%;
   margin: 0 auto;
+  top: 5px;
+  left: 45%;
   width: 10%;
   top: 2px;
   height: 40px;
@@ -176,7 +176,28 @@
     margin: 0 auto;
     text-align: center;
     position: relative;
-    top: 20%;
+    top: 30%;
     font-weight: 800;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .NoMoreStories {
+    position: relative;
+    top: 0;
+    text-align: center;
+    margin: 0 auto;
+    color: grey;
+    margin-bottom: 10px;
+  }
+
+  .seeMoreBtn {
+    position: relative;
+    left: -80%;
+    top: 330%;
+    width: 20%;
+    height: 50px;
+    z-index: 1;
+    padding: 10px;
   }
 }
