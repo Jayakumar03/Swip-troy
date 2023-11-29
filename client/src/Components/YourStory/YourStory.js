@@ -15,8 +15,11 @@ const YourStroy = ({ userId, isLoggedIn }) => {
   );
   const [openEditStoriesModal, setOpenEditStoriesModal] = useState(false);
   const [storyId, setStoryId] = useState(null);
+  // const [statestories, setStateStories] = useState([]);
 
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/userstories/${userId}`;
+  // const stateBackendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/getallstories`;
+
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -34,6 +37,20 @@ const YourStroy = ({ userId, isLoggedIn }) => {
 
     fetch();
   }, [isLoggedIn, userId, stories]);
+
+  // useEffect(() => {
+  //   const fetchData = () => {
+  //     try {
+  //       const res = axios.get(stateBackendUrl);
+
+  //       const data = res.data;
+  //       setStateStories(data.stories);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [statestories]);
 
   const handleSeeMoreIndiaClick = () => {
     setVisibleIndiaImages(visibleIndiaImages + 4);

@@ -23,9 +23,6 @@
   transition: all 1s ease-in-out;
 }
 
-.storycontainer:hover {
-  scale: 0.9;
-}
 
 .background {
   background-repeat: no-repeat;

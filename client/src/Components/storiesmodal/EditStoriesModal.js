@@ -245,6 +245,7 @@ const EditStories = ({
                   handleSlideChange(currentSlide, "category", e.target.value);
                 }
               }}
+              required
             >
               <option value="food ">food </option>
               <option value="health and fitness">health and fitness</option>

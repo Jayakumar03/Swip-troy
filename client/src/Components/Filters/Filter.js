@@ -13,8 +13,10 @@ const Filter = ({ category }) => {
   const [visibleIndiaImages, setVisibleIndiaImages] = useState(
     initialVisibleIndiaImages
   );
+  // const [statestories, setStateStories] = useState([]);
 
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/filteredStories`;
+  // const stateBackendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/getallstories`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +35,9 @@ const Filter = ({ category }) => {
     };
 
     fetchData();
-  }, []);
+  }, [stories]);
+
+
 
   const handleSeeMoreIndiaClick = () => {
     setVisibleIndiaImages(visibleIndiaImages + 4);

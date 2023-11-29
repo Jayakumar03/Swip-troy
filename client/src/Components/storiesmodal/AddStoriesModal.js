@@ -69,7 +69,6 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   // };
 
   const AddSlide = ({ setOpenAddStoriesModal }) => {
-    console.log(slides.length);
     if (slides.length < 6) {
       setSlides((prevSlides) => [
         ...prevSlides,
@@ -88,7 +87,6 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   };
 
   const deleteSlide = () => {
-    console.log(slides.length);
     if (slides.length > 3) {
       setSlides((prevSlides) => prevSlides.slice(0, -1));
       if (currentSlide === slides.length - 1) {
@@ -100,7 +98,6 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   };
 
   const closeModal = () => {
-    console.log("closed");
     setOpenAddStoriesModal(false);
   };
 
@@ -123,11 +120,11 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
           closeModal();
         } else {
           console.log(data.message);
-          toast.error("Not Success registered");
+          toast.error("Error in creating stories");
         }
       } catch (error) {
         console.log(error);
-        toast.info("Please all the input fileds are required");
+        toast.info("Unable to create stroies please try again");
       }
     }
   };
@@ -254,6 +251,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
                   handleSlideChange(currentSlide, "category", e.target.value);
                 }
               }}
+              required
             >
               {/* <option value="food ">food </option> */}
               <option value="food ">food </option>
