@@ -35,8 +35,15 @@
   font-weight: 700;
   text-align: center;
   cursor: pointer;
+  transition: all 1s ease-in-out;
 }
 
+.register-btn:hover {
+  scale: 1.1;
+  border: 1px solid #ff7373;
+  background-color: #ffffff;
+  color: #ff7373;
+}
 .signin-btn {
   position: absolute;
   width: 10%;
@@ -53,6 +60,14 @@
   text-align: center;
   cursor: pointer;
   padding: 10px;
+  transition: all 1s ease-in-out;
+}
+
+.signin-btn:hover {
+  scale: 1.1;
+  border: 1px solid #ff7373;
+  background-color: #ffffff;
+  color: #ff7373;
 }
 
 .filter-container {
@@ -75,6 +90,11 @@
   border: none;
   cursor: pointer;
   background-color: none;
+  transition: all 1s ease-in-out;
+}
+
+.fillter-button-container:hover {
+  scale: 1.1;
 }
 
 .filter-images {

@@ -319,7 +319,6 @@ const Home = () => {
       {showFilter.education && <Education />}
 
       <TopTrendingStories />
-      <TopTrendingStories />
     </div>
   );
 };
