@@ -46,6 +46,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     console.log(numberOfSlides.length);
     if (numberOfSlides.length > 3) {
       setNumberOfSlides((prevSlides) => prevSlides.slice(0, -1));
+      setUpdateSlides((prevSlides) => prevSlides.slice(0, -1));
     } else {
       toast.error("Minimum three slides are required");
     }
