@@ -78,7 +78,7 @@ const Home = () => {
     console.log(userId);
   }, [userId]);
 
-  const userUrl = `http://localhost:4000/api/v1/${userId}`;
+  const userUrl = `https://swip-troy-backend.vercel.app/api/v1/${userId}`;
 
   useEffect(() => {
     const fetch = async () => {
