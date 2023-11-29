@@ -32,7 +32,7 @@ import YourStroy from "./YourStory/YourStory";
 
 const Home = () => {
   const navigate = useNavigate();
-  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/getallstories`;
+
   const [registerComponent, setregisterComponent] = useState(false);
   const [signinComponent, setsigninComponent] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,18 +49,19 @@ const Home = () => {
     movies: false,
     education: false,
   });
+  const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/getallstories`;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(backendUrl);
+
         const data = res.data;
         setStories(data.stories);
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchData();
 
     const tokenInLocalStorage = localStorage.getItem("token");
@@ -75,6 +76,22 @@ const Home = () => {
 
   useEffect(() => {
     console.log(userId);
+  }, [userId]);
+
+  const userUrl = `http://localhost:4000/api/v1/${userId}`;
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const result = await axios.get(userUrl);
+        const userDetails = result.data;
+        setUserDetails(userDetails);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetch();
   }, [userId]);
 
   const handleFoodButtonClick = () => {
@@ -148,7 +165,6 @@ const Home = () => {
     setOpenLogoutModal((prevState) => !prevState);
   };
 
-  
   return (
     <div className="header">
       <div className="navbar">
@@ -182,7 +198,9 @@ const Home = () => {
                 style={{ width: "18px", height: "18px" }}
               />
             </button>
-            {openLogoutModal ? <Logout parent={"home"} /> : null}
+            {openLogoutModal ? (
+              <Logout parent={"home"} userDetails={userDetails} />
+            ) : null}
           </div>
         ) : (
           <div>
@@ -263,7 +281,6 @@ const Home = () => {
         </button>
       </div>
 
-      {console.log(userId)}
       {isLoggedIn ? (
         <YourStroy userId={userId} isLoggedIn={isLoggedIn} />
       ) : null}

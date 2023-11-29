@@ -6,9 +6,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Logout = ({ parent }) => {
+const Logout = ({ parent, userDetails }) => {
   const navigate = useNavigate();
-
   const backendurl = `https://swip-troy-backend.vercel.app/api/v1/logout`;
 
   const handleLogout = () => {
@@ -38,10 +37,7 @@ const Logout = ({ parent }) => {
 
   return (
     <div className={styles.logoutContainer}>
-      <p className={styles.logUsername}>
-        {/* {userDetails.username}  */}
-        Hello
-      </p>
+      <p className={styles.logUsername}>{userDetails.user.username}</p>
       <button className={styles.logoutBtn} onClick={handleLogout}>
         Logout
       </button>

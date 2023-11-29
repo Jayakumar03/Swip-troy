@@ -72,3 +72,25 @@ exports.logOut = async (req, res, next) => {
     });
   } catch (error) {}
 };
+
+exports.getUserdetails = async (req, res, next) => {
+  try {
+    console.log(req.params.id);
+    const individualUserDetails = await User.findById(req.params.id);
+
+    if (!individualUserDetails) {
+      return res.status(400).json({
+        success: false,
+        message: "There are no stories avaiable ",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user: individualUserDetails,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
