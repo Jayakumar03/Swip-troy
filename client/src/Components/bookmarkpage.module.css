@@ -37,8 +37,15 @@
   margin-top: 5px;
   color: #ffffff;
   cursor: pointer;
+  transition: all 1s ease-in-out;
 }
 
+.bookmarkBtn:hover {
+  scale: 1.1;
+  border: 1px solid #ff7373;
+  background-color: #ffffff;
+  color: #ff7373;
+}
 .addStoryBtn {
   position: absolute;
   width: 10%;
@@ -57,6 +64,14 @@
   margin-top: 5px;
   color: #ffffff;
   cursor: pointer;
+  transition: all 1s ease-in-out;
+}
+
+.addStoryBtn :hover {
+  scale: 1.1;
+  border: 1px solid #ff7373;
+  background-color: #ffffff;
+  color: #ff7373;
 }
 
 .bookLittleIcon {
@@ -103,7 +118,7 @@
   font-weight: 600;
 }
 
- .container {
+.container {
   display: inline-block;
   flex-direction: row;
   flex-wrap: wrap;
@@ -115,8 +130,7 @@
   left: 2%;
   margin: 0 auto;
   margin-bottom: 10%;
-  
-} 
+}
 
 .storycontainer {
   width: 20%;
@@ -135,12 +149,12 @@
   height: 100%;
 }
 
-.noMorestories{
+.noMorestories {
   position: relative;
   color: grey;
-  top:10px;
+  top: 10px;
   left: 42.5;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
 @media only screen and (max-width: 600px) {

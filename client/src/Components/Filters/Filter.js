@@ -48,9 +48,7 @@ const Filter = ({ category }) => {
   return (
     <>
       {stories && stories.length === 0 ? (
-        <h3 className={filters.NoMoreStories}>
-          No stories are available for this filter
-        </h3>
+        <h3 className={filters.NoMoreStories}>No stories are available</h3>
       ) : (
         <>
           {stories &&

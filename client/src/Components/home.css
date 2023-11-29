@@ -39,6 +39,7 @@
 }
 
 .register-btn:hover {
+  transition: all 1s ease-in-out;
   scale: 1.1;
   border: 1px solid #ff7373;
   background-color: #ffffff;

@@ -9,6 +9,7 @@
   margin: 0 auto;
   margin-bottom: 10%;
   /* border: 1px solid red; */
+  transition: all 1s ease-in-out;
 }
 
 .storycontainer {
@@ -19,6 +20,11 @@
   top: -10%;
   border-radius: 12px;
   margin: 2%;
+  transition: all 1s ease-in-out;
+}
+
+.storycontainer:hover {
+  scale: 0.9;
 }
 
 .background {
@@ -26,6 +32,7 @@
   background-size: cover;
   background-position: center;
   height: 100%;
+  transition: all 1s ease-in-out;
 }
 
 .NoMoreStories {
@@ -146,7 +153,7 @@
     word-wrap: break-word;
     text-overflow: scroll;
   }
- /* left: 1%; */
+  /* left: 1%; */
   .wrappered {
     display: block;
     position: relative;
