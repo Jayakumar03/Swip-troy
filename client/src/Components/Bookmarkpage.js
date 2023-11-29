@@ -6,7 +6,7 @@ import AddStories from "./storiesmodal/AddStoriesModal";
 import Logout from "./auth/Logout";
 
 import React, { useEffect, useState } from "react";
-import filters from "./Filters/filters.module.css";
+import filters from "./TopTrending/trending.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -113,16 +113,15 @@ const Bookmarkpage = () => {
         {stories && stories.length === 0 ? (
           <h1 className={styles.noMorestories}>No stories are available</h1>
         ) : (
-          <>
+          <div className={filters.container}>
             {stories &&
               stories.length > 0 &&
               stories.slice(0, visibleIndiaImages).map((story) => {
                 return (
                   <div
-                    key={story._id}
                     id={story._id}
                     onClick={individualStoryPage}
-                    className={`${styles.storycontainer} ${styles.background} ${styles.container}`}
+                    className={`${filters.storycontainer} ${filters.background} ${filters.container}`}
                     style={{
                       backgroundImage: `url(${
                         story.slides &&
@@ -132,11 +131,7 @@ const Bookmarkpage = () => {
                       })`,
                     }}
                   >
-                    <div
-                      id={story._id}
-                      className={filters.wrappered}
-                      onClick={individualStoryPage}
-                    >
+                    <div className={filters.wrappered}>
                       <h3 className={filters.heading}>
                         {story.slides &&
                           story.slides[0] &&
@@ -160,7 +155,7 @@ const Bookmarkpage = () => {
                 See more
               </button>
             )}
-          </>
+          </div>
         )}
         <ToastContainer
           position="top-right"

@@ -85,6 +85,7 @@ const Home = () => {
       try {
         const result = await axios.get(userUrl);
         const userDetails = result.data;
+        console.log(userDetails);
         setUserDetails(userDetails);
       } catch (error) {
         console.log(error);

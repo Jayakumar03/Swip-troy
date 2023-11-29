@@ -33,19 +33,65 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
     console.log(newSlides);
   };
 
+  console.log(currentSlide);
+
+  // const AddSlide = ({ setOpenAddStoriesModal }) => {
+  //   console.log(numberOfSlides.length);
+  //   if (numberOfSlides.length < 6) {
+  //     setNumberOfSlides((prevSlides) => [...prevSlides, prevSlides.length + 1]);
+  //     setSlides((prevSlides) => [
+  //       ...prevSlides,
+  //       {
+  //         heading: "",
+  //         description: "",
+  //         image: {
+  //           url: "",
+  //         },
+  //         like: 0,
+  //       },
+  //     ]);
+  //   } else {
+  //     toast.error("Maximium six slides are allowed");
+  //   }
+  // };
+
+  // const deleteSlide = () => {
+  //   console.log(numberOfSlides.length);
+  //   if (numberOfSlides.length > 3) {
+  //     setNumberOfSlides((prevSlides) => prevSlides.slice(0, -1));
+  //     setSlides((prevSlides) => prevSlides.slice(0, -1));
+  //     if (currentSlide === numberOfSlides.length - 1) {
+  //       setCurrentSlide(currentSlide - 1);
+  //     }
+  //   } else {
+  //     toast.error("Minimum three slides are required");
+  //   }
+  // };
+
   const AddSlide = ({ setOpenAddStoriesModal }) => {
-    console.log(numberOfSlides.length);
-    if (numberOfSlides.length < 6) {
-      setNumberOfSlides((prevSlides) => [...prevSlides, prevSlides.length + 1]);
+    console.log(slides.length);
+    if (slides.length < 6) {
+      setSlides((prevSlides) => [
+        ...prevSlides,
+        {
+          heading: "",
+          description: "",
+          image: {
+            url: "",
+          },
+          like: 0,
+        },
+      ]);
     } else {
       toast.error("Maximium six slides are allowed");
     }
   };
 
   const deleteSlide = () => {
-    console.log(numberOfSlides.length);
-    if (numberOfSlides.length > 3) {
-      setNumberOfSlides((prevSlides) => prevSlides.slice(0, -1));
+    console.log(slides.length);
+    if (slides.length > 3) {
+      setSlides((prevSlides) => prevSlides.slice(0, -1));
+      setCurrentSlide(currentSlide - 1);
     } else {
       toast.error("Minimum three slides are required");
     }
@@ -57,7 +103,8 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   };
 
   const handleCreateStories = async () => {
-    if (numberOfSlides.length < 3) {
+    console.log(slides);
+    if (slides.length < 3) {
       toast.error("Minimum three slides are required");
     } else {
       try {
@@ -88,7 +135,6 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
   };
 
   const nextSlide = () => {
-    console.log(numberOfSlides.length);
     if (
       !slides[currentSlide].heading ||
       !slides[currentSlide].description ||
@@ -98,19 +144,8 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
       toast.error("All input are required");
       console.log("error in input filed");
     } else {
-      if (currentSlide < numberOfSlides.length - 1) {
+      if (currentSlide < slides.length - 1) {
         setCurrentSlide(currentSlide + 1);
-        setSlides((prevSlides) => [
-          ...prevSlides,
-          {
-            heading: "",
-            description: "",
-            image: {
-              url: "",
-            },
-            like: 0,
-          },
-        ]);
       }
     }
   };
@@ -123,7 +158,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
         </button>
         <span className={addStoriesStyle.info}>Add upto 6 slides</span>
         <div className={addStoriesStyle.slideContainer}>
-          {numberOfSlides.map((slide, index) => {
+          {slides.map((slide, index) => {
             return (
               <div className={addStoriesStyle.slide}>
                 <button
@@ -220,7 +255,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
             >
               {/* <option value="food ">food </option> */}
               <option value="food ">food </option>
-              <option value="health and fitness">health</option>
+              <option value="health">health</option>
               <option value="travel">travel</option>
               <option value="movies">movies</option>
               <option value="education">education</option>

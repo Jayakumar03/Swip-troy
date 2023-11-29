@@ -37,7 +37,7 @@ const Logout = ({ parent, userDetails }) => {
 
   return (
     <div className={styles.logoutContainer}>
-      <p className={styles.logUsername}>{userDetails.user.username}</p>
+      {/* <p className={styles.logUsername}>{userDetails.user.username}</p> */}
       <button className={styles.logoutBtn} onClick={handleLogout}>
         Logout
       </button>
