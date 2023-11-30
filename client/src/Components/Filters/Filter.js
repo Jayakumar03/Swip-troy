@@ -37,8 +37,6 @@ const Filter = ({ category }) => {
     fetchData();
   }, [stories]);
 
-
-
   const handleSeeMoreIndiaClick = () => {
     setVisibleIndiaImages(visibleIndiaImages + 4);
   };
@@ -73,17 +71,29 @@ const Filter = ({ category }) => {
                   id={story._id}
                 >
                   {console.log(story._id)}
-                  <div className={filters.wrappered}>
-                    <h3 className={filters.heading}>
-                      {story.slides &&
-                        story.slides[0] &&
-                        story.slides[0].heading}
-                    </h3>
-                    <p className={filters.decsription}>
-                      {story.slides &&
-                        story.slides[0] &&
-                        story.slides[0].description}
-                    </p>
+                  <div
+                    className={filters.wrappered}
+                    id={story._id}
+                    onClick={individualStoryPage}
+                  >
+                   <h3
+                        className={filters.heading}
+                        id={story._id}
+                        onClick={individualStoryPage}
+                      >
+                        {story.slides &&
+                          story.slides[0] &&
+                          story.slides[0].heading}
+                      </h3>
+                      <p
+                        className={filters.decsription}
+                        id={story._id}
+                        onClick={individualStoryPage}
+                      >
+                        {story.slides &&
+                          story.slides[0] &&
+                          story.slides[0].description}
+                      </p>
                   </div>
                 </div>
               );

@@ -73,13 +73,22 @@ const Education = ({
                       })`,
                     }}
                   >
-                    <div className={filters.wrappered}>
-                      <h3 className={filters.heading}>
+                    <div className={filters.wrappered} id={story._id}
+                      onClick={individualStoryPage}>
+                     <h3
+                        className={filters.heading}
+                        id={story._id}
+                        onClick={individualStoryPage}
+                      >
                         {story.slides &&
                           story.slides[0] &&
                           story.slides[0].heading}
                       </h3>
-                      <p className={filters.decsription}>
+                      <p
+                        className={filters.decsription}
+                        id={story._id}
+                        onClick={individualStoryPage}
+                      >
                         {story.slides &&
                           story.slides[0] &&
                           story.slides[0].description}

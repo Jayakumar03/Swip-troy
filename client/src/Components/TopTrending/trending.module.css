@@ -70,6 +70,7 @@
 .decsription {
   width: 80%;
   position: relative;
+  top: -10px;
   left: 10px;
   z-index: 1;
   word-wrap: break-word;
