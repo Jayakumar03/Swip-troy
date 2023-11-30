@@ -18,7 +18,6 @@ const stories = new mongoose.Schema({
       heading: {
         type: String,
         required: [true, "please provide your heading"],
-        maxlength: [20, "heading should be of 40 characters"],
       },
       description: {
         type: String,
