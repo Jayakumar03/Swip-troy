@@ -85,10 +85,18 @@ const YourStroy = ({ userId, isLoggedIn }) => {
                     id={story._id}
                     onClick={individualStoryPage}
                   >
-                    <h3 className={filters.heading}>
+                    <h3
+                      className={filters.heading}
+                      id={story._id}
+                      onClick={individualStoryPage}
+                    >
                       {story.slides && story.slides[0].heading}
                     </h3>
-                    <p className={filters.decsription}>
+                    <p
+                      className={filters.decsription}
+                      id={story._id}
+                      onClick={individualStoryPage}
+                    >
                       {story.slides && story.slides[0].description}
                     </p>
                   </div>
