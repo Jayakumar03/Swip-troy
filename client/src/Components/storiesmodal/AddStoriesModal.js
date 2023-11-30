@@ -119,6 +119,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId, stories }) => {
 
         if (data.success) {
           toast("Successfully created stories");
+          toast.info("Please reload page to see lastest changes");
           closeModal();
         } else {
           console.log(data.message);
@@ -126,9 +127,9 @@ const AddStories = ({ setOpenAddStoriesModal, userId, stories }) => {
         }
       } catch (error) {
         console.log(error);
-        toast.info("Unable to create stroies please try again");
+        toast.info("Heading should not exceed 20 character length ");
       }
-      toast.info("Please reload page to see lastest changes");
+     
     }
   };
 
@@ -256,7 +257,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId, stories }) => {
               }}
               required
             >
-              {/* <option value="food ">food </option> */}
+              <option>Please select one option</option>
               <option value="food ">food </option>
               <option value="health">health</option>
               <option value="travel">travel</option>
