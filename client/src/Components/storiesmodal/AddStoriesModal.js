@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import addStoriesStyle from "./addStoriesModal.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const AddStories = ({ setOpenAddStoriesModal, userId }) => {
+const AddStories = ({ setOpenAddStoriesModal, userId, stories }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   // const [numberOfSlides, setNumberOfSlides] = useState([]);
   const [slides, setSlides] = useState([
@@ -18,6 +18,8 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
       like: 0,
     },
   ]);
+
+  useEffect(() => {}, [stories]);
 
   const backendUrl = `https://swip-troy-backend.vercel.app/api/v1/stories/createstories`;
   // const localHost = `http://localhost:4000/api/v1/stories/createstories`;
@@ -126,6 +128,7 @@ const AddStories = ({ setOpenAddStoriesModal, userId }) => {
         console.log(error);
         toast.info("Unable to create stroies please try again");
       }
+      toast.info("Please reload page to see lastest changes");
     }
   };
 

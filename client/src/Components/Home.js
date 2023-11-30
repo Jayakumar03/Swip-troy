@@ -173,6 +173,7 @@ const Home = () => {
           <AddStories
             setOpenAddStoriesModal={setOpenAddStoriesModal}
             userId={userId}
+            stories={stories}
           />
         )}
         {/* {openIndividualStoryModal && <IndividualStory setOpenIndividualStoryModal={setOpenIndividualStoryModal} setregisterComponent={setregisterComponent}  />} */}
