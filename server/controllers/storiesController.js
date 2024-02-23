@@ -37,7 +37,6 @@ exports.editStories = async (req, res, next) => {
     const storyId = req.params.id;
 
     console.log(storyId);
-    console.log(storyId, "api hitting");
 
     const update = req.body;
 
@@ -90,10 +89,10 @@ exports.getAllStories = async (req, res, next) => {
 exports.bookmarkedStories = async (req, res, next) => {
   try {
     const userId = req.params.id;
-    console.log("User ID:", userId); // Add this line
+    console.log("User ID:", userId); 
 
     const bookmarkedStories = await Stories.find({
-      userId: { $in: [userId] },
+      userId: userId,
       bookmark: true,
     });
 

@@ -145,7 +145,6 @@ const AddStories = ({ setOpenAddStoriesModal, userId, stories }) => {
       !slides[currentSlide].category
     ) {
       toast.error("All input are required");
-      console.log("error in input filed");
     } else {
       if (currentSlide < slides.length - 1) {
         setCurrentSlide(currentSlide + 1);

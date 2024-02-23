@@ -45,8 +45,8 @@ const EditStories = ({
     setUpdateSlides(newSlides);
     console.log(newSlides);
   };
-  // Add axios post request with bookmark and userDetails._id
 
+  // Add axios post request with bookmark and userDetails._id
   const AddSlide = ({ setOpenAddStoriesModal }) => {
     console.log(numberOfSlides.length);
     if (numberOfSlides.length < 6) {
@@ -78,7 +78,6 @@ const EditStories = ({
   };
 
   const closeModal = () => {
-    console.log("closed1280");
     setOpenEditStoriesModal(false);
   };
 
@@ -118,7 +117,6 @@ const EditStories = ({
       !updateSlide[currentSlide].category
     ) {
       toast.error("All input are required");
-      console.log("error in input filed");
     } else {
       if (currentSlide < numberOfSlides.length - 1) {
         setCurrentSlide(currentSlide + 1);

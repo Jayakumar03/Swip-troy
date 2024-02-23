@@ -3,14 +3,13 @@ const app = express();
 const mongoDB = require("./config/db");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+require("dotenv").config();
+mongoDB();
+
 // This will allow all CORS requests
 app.use(cors());
 
-// preflight request
 app.options("*", cors());
-
-// Access-Control-Allow-Origin
-// origin: ["https://swip-troy-frontend.vercel.app"],
 
 app.use(
   cors({
@@ -25,9 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const fileUpload = require("express-fileupload");
-
-require("dotenv").config();
-mongoDB();
 
 // Import all routes here
 const user = require("./routes/user");
@@ -46,6 +42,7 @@ app.get("/health", (req, res) => {
   console.log("Health is good");
 });
 
+// home page for server 
 app.get("/", (req, res) => {
   res.status(200).send("<h1>Home</h1>");
 });

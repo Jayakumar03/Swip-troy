@@ -70,7 +70,9 @@ exports.logOut = async (req, res, next) => {
       success: true,
       message: "Logout Success",
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.getUserdetails = async (req, res, next) => {
