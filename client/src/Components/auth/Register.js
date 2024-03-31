@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -34,8 +36,15 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails, setUserId }) => {
     setShowPassword(!showPassword);
   };
 
+  const responseMessage = (response) => {
+    console.log(response);
+  };
+  const errorMessage = (error) => {
+    console.log(error);
+  };
+
   const handleFormSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     console.log("Username:", userName);
     console.log("Password:", password);
@@ -66,6 +75,32 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails, setUserId }) => {
 
     setUserName("");
     setPassword("");
+  };
+
+  const handleGoogleSsoSubmit = (email, password) => {
+    const result = axios.post(backendUrl, {
+      username: email,
+      password: password,
+    });
+
+    result
+      .then((res) => {
+        const data = res.data;
+        if (data.success) {
+          setIsLoggedIn(true);
+          setUserId(data.user._id);
+          Cookies.set("token", data.token);
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("userId", data.user._id);
+          onClose();
+          setUserDetails(data.user);
+          toast("Enjoy the stories!");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("Not Success registered");
+      });
   };
 
   const handleClose = () => {
@@ -111,10 +146,25 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails, setUserId }) => {
               style: { height: "30px", width: "200px" },
             }}
           />
+
           <button type="submit" className={register.regiBtn}>
             Register
           </button>
         </form>
+        <GoogleLogin
+          className={register.googleLoginBtn}
+          onSuccess={(credentialResponse) => {
+            const userDetails = jwtDecode(credentialResponse.credential);
+            console.log(userDetails);
+
+            handleGoogleSsoSubmit(userDetails.email, userDetails.sub);
+
+            // handleFormSubmit();
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
       </div>
       <ToastContainer
         position="top-right"
