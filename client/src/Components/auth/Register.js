@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin} from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
@@ -107,6 +107,7 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails, setUserId }) => {
     onClose();
   };
 
+
   return (
     <div className={register.background}>
       <div className={register.registerContainer}>
@@ -152,7 +153,6 @@ const Register = ({ onClose, setIsLoggedIn, setUserDetails, setUserId }) => {
           </button>
         </form>
         <GoogleLogin
-          className={register.googleLoginBtn}
           onSuccess={(credentialResponse) => {
             const userDetails = jwtDecode(credentialResponse.credential);
             console.log(userDetails);
